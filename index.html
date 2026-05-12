@@ -850,9 +850,16 @@
 <div class="modal-overlay" id="success-modal">
   <div class="modal-box">
     <div class="modal-icon">🎉</div>
-    <h3>ORDER PLACED!</h3>
-    <p>Thank you! Your order has been received. We'll call you shortly on your provided number to confirm delivery details.<br><br>📞 +971 54 305 2044</p>
-    <button class="modal-close-btn" onclick="closeModal()">Great, Thanks!</button>
+    <h3>ORDER READY!</h3>
+    <p>Tap the button below to send your order directly to us on WhatsApp. We'll confirm it right away!</p>
+    <a id="whatsapp-order-btn" href="#" target="_blank" style="
+      display:block; background:#25D366; color:#fff;
+      text-decoration:none; padding:14px 28px; border-radius:30px;
+      font-weight:800; font-size:1rem; margin-bottom:12px;
+      box-shadow:0 4px 16px rgba(37,211,102,0.4);
+      text-align:center; letter-spacing:0.5px;
+    ">📲 Send Order via WhatsApp</a>
+    <button class="modal-close-btn" onclick="closeModal()" style="background:transparent;color:#999;border:1px solid #ddd;font-size:0.85rem;padding:8px 20px;">Close</button>
   </div>
 </div>
 
@@ -989,7 +996,7 @@ ${notes ? '📝 *Notes:* ' + notes : ''}
 _Sent via Papa Dola Website_`;
 
     const waURL = 'https://wa.me/971543052044?text=' + encodeURIComponent(msg);
-    window.open(waURL, '_blank');
+    document.getElementById('whatsapp-order-btn').href = waURL;
 
     document.getElementById('success-modal').classList.add('open');
     cart = [];
