@@ -1,0 +1,978 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Papa Dola Restaurant – Al Rashidiya, Ajman</title>
+  <style>
+    :root {
+      --maroon: #5c0a14;
+      --maroon-dark: #3d0609;
+      --maroon-mid: #7a1020;
+      --maroon-light: #9b1528;
+      --cream: #f2e0c0;
+      --cream-light: #fdf6eb;
+      --cream-dim: #c9b48a;
+      --gold: #c9a84c;
+      --white: #ffffff;
+      --dark: #1a0305;
+      --shadow: 0 6px 28px rgba(92,10,20,0.25);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Segoe UI',sans-serif; background:var(--cream-light); color:var(--dark); }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background:var(--maroon-dark); color:var(--cream-dim);
+      text-align:center; font-size:0.82rem; padding:6px 5%;
+      letter-spacing:1px;
+    }
+    .topbar a { color:var(--cream); text-decoration:none; margin:0 10px; }
+
+    /* ── NAV ── */
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:var(--maroon); padding:0 5%;
+      display:flex; align-items:center; justify-content:space-between;
+      height:68px; box-shadow:0 3px 16px rgba(0,0,0,0.4);
+      border-bottom:2px solid var(--gold);
+    }
+    .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-wrap {
+      width:46px; height:46px; border-radius:50%;
+      background:var(--maroon-light); border:2px solid var(--gold);
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    .nav-logo-svg { width:40px; height:40px; }
+    .nav-brand-text { display:flex; flex-direction:column; }
+    .nav-brand-text span:first-child { color:var(--cream); font-size:1.25rem; font-weight:800; letter-spacing:2px; line-height:1.1; }
+    .nav-brand-text span:last-child { color:var(--gold); font-size:0.62rem; letter-spacing:3px; text-transform:uppercase; }
+    .nav-links { display:flex; gap:26px; }
+    .nav-links a { color:var(--cream-dim); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color .2s; }
+    .nav-links a:hover { color:var(--cream); }
+    .nav-right { display:flex; align-items:center; gap:12px; }
+    .location-sel {
+      background:var(--maroon-mid); color:var(--cream); border:1px solid var(--gold);
+      border-radius:20px; padding:6px 12px; font-size:0.82rem; cursor:pointer; outline:none;
+    }
+    .nav-cart-btn {
+      background:var(--gold); color:var(--maroon-dark);
+      border:none; border-radius:24px; padding:8px 18px;
+      font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:0.88rem;
+      transition:transform .15s; letter-spacing:0.5px;
+    }
+    .nav-cart-btn:hover { transform:scale(1.05); }
+    #cart-count {
+      background:var(--maroon-dark); color:var(--cream);
+      border-radius:50%; width:20px; height:20px;
+      display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:800;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: radial-gradient(ellipse at 30% 50%, var(--maroon-mid) 0%, var(--maroon) 40%, var(--maroon-dark) 100%);
+      padding:80px 5% 70px; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap;
+      border-bottom:3px solid var(--gold);
+      position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-text { flex:1; min-width:280px; position:relative; }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(201,168,76,0.15); border:1px solid var(--gold);
+      color:var(--gold); font-size:0.78rem; letter-spacing:3px; text-transform:uppercase;
+      padding:5px 14px; border-radius:20px; margin-bottom:16px;
+    }
+    .hero-text h1 { color:var(--cream); font-size:clamp(2rem,4vw,3rem); font-weight:900; line-height:1.15; margin-bottom:10px; letter-spacing:1px; }
+    .hero-text h1 span { color:var(--gold); }
+    .hero-tagline { color:var(--cream-dim); font-size:1rem; font-style:italic; margin-bottom:20px; }
+    .hero-text p { color:rgba(242,224,192,0.8); font-size:1rem; line-height:1.65; margin-bottom:30px; max-width:460px; }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-gold {
+      background:var(--gold); color:var(--maroon-dark);
+      padding:13px 30px; border-radius:30px; font-weight:800; text-decoration:none; font-size:0.95rem;
+      box-shadow:0 4px 16px rgba(201,168,76,0.4); transition:transform .15s,box-shadow .15s;
+    }
+    .btn-gold:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.5); }
+    .btn-outline-cream {
+      border:2px solid rgba(242,224,192,0.5); color:var(--cream);
+      padding:13px 30px; border-radius:30px; font-weight:600; text-decoration:none; font-size:0.95rem;
+      transition:background .2s;
+    }
+    .btn-outline-cream:hover { background:rgba(242,224,192,0.1); }
+
+    /* ── LOGO CENTERPIECE ── */
+    .hero-logo-wrap {
+      flex-shrink:0; position:relative;
+      width:clamp(180px,24vw,260px); height:clamp(180px,24vw,260px);
+    }
+    .hero-logo-ring {
+      width:100%; height:100%; border-radius:50%;
+      border:4px solid var(--gold); box-shadow:0 0 40px rgba(201,168,76,0.3), 0 12px 40px rgba(0,0,0,0.4);
+      background:var(--maroon); overflow:hidden; display:flex; align-items:center; justify-content:center;
+    }
+    .hero-logo-inner { text-align:center; padding:20px; }
+    .chef-circle {
+      width:120px; height:120px; border-radius:50%;
+      background:var(--maroon-light); border:3px solid var(--gold);
+      margin:0 auto 10px; display:flex; align-items:center; justify-content:center;
+      font-size:3rem;
+    }
+    .hero-logo-inner .brand-name { color:var(--cream); font-size:1.3rem; font-weight:900; letter-spacing:4px; }
+    .hero-logo-inner .est { color:var(--gold); font-size:0.65rem; letter-spacing:3px; margin-top:4px; }
+    .hero-logo-inner .tagline-small { color:var(--cream-dim); font-size:0.55rem; letter-spacing:1.5px; text-transform:uppercase; }
+
+    /* ── STATS ── */
+    .stats-bar {
+      background:var(--maroon-dark); border-bottom:2px solid var(--gold);
+      display:flex; justify-content:center; gap:60px; padding:20px 5%; flex-wrap:wrap;
+    }
+    .stat { text-align:center; }
+    .stat strong { display:block; font-size:1.5rem; font-weight:900; color:var(--gold); }
+    .stat span { font-size:0.8rem; color:var(--cream-dim); text-transform:uppercase; letter-spacing:1px; }
+
+    /* ── CONTACT BAR ── */
+    .contact-bar {
+      background:var(--maroon-mid); padding:14px 5%;
+      display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap;
+      border-bottom:1px solid rgba(201,168,76,0.3);
+    }
+    .contact-item { display:flex; align-items:center; gap:8px; color:var(--cream); font-size:0.9rem; text-decoration:none; }
+    .contact-item:hover { color:var(--gold); }
+    .contact-icon { font-size:1.1rem; }
+    .social-links { display:flex; gap:12px; }
+    .social-btn {
+      width:34px; height:34px; border-radius:50%; border:1px solid var(--gold);
+      display:flex; align-items:center; justify-content:center; font-size:1rem;
+      text-decoration:none; color:var(--cream); background:rgba(201,168,76,0.1);
+      transition:background .2s;
+    }
+    .social-btn:hover { background:var(--gold); color:var(--maroon-dark); }
+
+    /* ── SECTION HEADER ── */
+    .section-header { text-align:center; margin-bottom:32px; padding-top:60px; }
+    .section-header h2 { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--maroon); letter-spacing:1px; }
+    .section-header p { color:#666; margin-top:8px; font-size:0.95rem; }
+    .gold-line { width:60px; height:3px; background:var(--gold); margin:12px auto 0; border-radius:2px; }
+
+    /* ── LOCATION TABS ── */
+    .loc-tabs { display:flex; justify-content:center; gap:16px; padding:0 5% 28px; flex-wrap:wrap; }
+    .loc-tab {
+      padding:10px 28px; border-radius:30px; border:2px solid var(--maroon);
+      background:transparent; color:var(--maroon); font-weight:700; cursor:pointer;
+      font-size:0.9rem; transition:all .2s; display:flex; align-items:center; gap:8px;
+    }
+    .loc-tab.active, .loc-tab:hover { background:var(--maroon); color:var(--cream); }
+
+    /* ── CATEGORY TABS ── */
+    .cat-tabs {
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:center; padding:0 5% 28px;
+    }
+    .cat-tab {
+      padding:7px 16px; border-radius:20px; border:1.5px solid var(--maroon-light);
+      background:transparent; color:var(--maroon); font-weight:600; cursor:pointer; font-size:0.82rem; transition:all .2s;
+    }
+    .cat-tab.active, .cat-tab:hover { background:var(--maroon); color:var(--cream); }
+
+    /* ── MENU GRID ── */
+    #menu { padding:0 5% 60px; }
+    .menu-location { display:none; }
+    .menu-location.active { display:block; }
+    .category-section { margin-bottom:44px; }
+    .category-section h3 {
+      font-size:1.1rem; font-weight:800; color:var(--maroon);
+      border-left:4px solid var(--gold); padding-left:12px;
+      margin-bottom:18px; text-transform:uppercase; letter-spacing:1px;
+    }
+    .menu-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+    .menu-card {
+      background:var(--white); border-radius:12px;
+      padding:16px; box-shadow:0 2px 10px rgba(92,10,20,0.08);
+      display:flex; flex-direction:column; gap:8px;
+      transition:transform .2s,box-shadow .2s;
+      border:1px solid rgba(92,10,20,0.08);
+    }
+    .menu-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+    .menu-card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+    .menu-card h4 { font-size:0.95rem; font-weight:700; color:var(--dark); line-height:1.3; }
+    .menu-card .price { color:var(--maroon); font-weight:900; font-size:1rem; white-space:nowrap; flex-shrink:0; }
+    .menu-card p { font-size:0.8rem; color:#666; line-height:1.5; flex:1; }
+    .add-btn {
+      align-self:flex-end; background:var(--maroon); color:var(--cream);
+      border:none; border-radius:18px; padding:6px 16px;
+      font-weight:700; cursor:pointer; font-size:0.82rem; transition:background .2s,transform .15s;
+    }
+    .add-btn:hover { background:var(--maroon-mid); transform:scale(1.04); }
+
+    /* ── ORDER ── */
+    #order { background:linear-gradient(135deg,var(--maroon-dark),var(--maroon)); padding:70px 5%; }
+    .order-wrapper {
+      max-width:700px; margin:0 auto;
+      background:var(--cream-light); border-radius:20px;
+      padding:40px; box-shadow:0 20px 60px rgba(0,0,0,0.3);
+      border:2px solid var(--gold);
+    }
+    .order-wrapper h2 { font-size:1.6rem; font-weight:900; color:var(--maroon); margin-bottom:6px; letter-spacing:1px; }
+    .order-wrapper p { color:#666; margin-bottom:24px; font-size:0.92rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-group { display:flex; flex-direction:column; gap:5px; margin-bottom:14px; }
+    .form-group label { font-size:0.85rem; font-weight:700; color:var(--maroon); text-transform:uppercase; letter-spacing:0.5px; }
+    .form-group input,.form-group select,.form-group textarea {
+      padding:10px 13px; border:2px solid #ddd; border-radius:8px;
+      font-size:0.92rem; font-family:inherit; outline:none; background:var(--white);
+      transition:border-color .2s;
+    }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--maroon); }
+    .form-group textarea { resize:vertical; min-height:80px; }
+    .order-preview {
+      background:var(--white); border-radius:10px; padding:14px 16px; margin-bottom:18px;
+      min-height:56px; border:1px dashed var(--cream-dim);
+    }
+    .order-preview p { color:#999; font-size:0.88rem; margin:0; }
+    .cart-item-row { display:flex; justify-content:space-between; font-size:0.88rem; padding:3px 0; color:var(--dark); }
+    .order-total {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 0; border-top:2px solid var(--gold); margin-bottom:18px;
+    }
+    .order-total span { font-size:0.95rem; font-weight:700; color:var(--dark); }
+    .order-total strong { font-size:1.3rem; font-weight:900; color:var(--maroon); }
+    .submit-btn {
+      width:100%; background:var(--maroon); color:var(--cream);
+      border:2px solid var(--gold); border-radius:10px; padding:14px;
+      font-size:1rem; font-weight:800; cursor:pointer; letter-spacing:1px;
+      transition:background .2s,transform .15s;
+    }
+    .submit-btn:hover { background:var(--maroon-mid); transform:translateY(-1px); }
+
+    /* ── CART PANEL ── */
+    .cart-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; }
+    .cart-overlay.open { display:block; }
+    .cart-panel {
+      position:fixed; right:-420px; top:0; bottom:0; width:380px; max-width:95vw;
+      background:var(--cream-light); z-index:201; box-shadow:-4px 0 30px rgba(0,0,0,0.3);
+      transition:right .3s ease; display:flex; flex-direction:column;
+      border-left:2px solid var(--gold);
+    }
+    .cart-panel.open { right:0; }
+    .cart-header {
+      background:var(--maroon); color:var(--cream); padding:18px 20px;
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:2px solid var(--gold);
+    }
+    .cart-header h3 { font-size:1.1rem; font-weight:800; letter-spacing:1px; }
+    .cart-close { background:none; border:none; color:var(--cream); font-size:1.5rem; cursor:pointer; }
+    .cart-items { flex:1; overflow-y:auto; padding:16px 20px; }
+    .cart-empty { text-align:center; color:#999; padding:40px 0; font-size:0.9rem; }
+    .cart-item { display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid #eee; gap:10px; }
+    .cart-item-info { flex:1; }
+    .cart-item-info strong { font-size:0.9rem; display:block; margin-bottom:2px; color:var(--dark); }
+    .cart-item-info span { font-size:0.78rem; color:var(--maroon); font-weight:700; }
+    .cart-item-controls { display:flex; align-items:center; gap:8px; }
+    .qty-btn {
+      width:26px; height:26px; border-radius:50%;
+      border:2px solid var(--maroon); background:none; color:var(--maroon);
+      font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    }
+    .qty-btn:hover { background:var(--maroon); color:var(--cream); }
+    .cart-item-controls span { font-weight:800; min-width:20px; text-align:center; }
+    .cart-footer { padding:16px 20px; border-top:2px solid var(--gold); }
+    .cart-total-row { display:flex; justify-content:space-between; margin-bottom:14px; }
+    .cart-total-row span { font-weight:700; color:var(--dark); }
+    .cart-total-row strong { font-size:1.2rem; font-weight:900; color:var(--maroon); }
+    .cart-order-btn {
+      width:100%; background:var(--maroon); color:var(--cream);
+      border:2px solid var(--gold); border-radius:10px; padding:12px;
+      font-size:0.95rem; font-weight:800; cursor:pointer; letter-spacing:1px;
+      transition:background .2s;
+    }
+    .cart-order-btn:hover { background:var(--maroon-mid); }
+
+    /* ── MODAL ── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:300; align-items:center; justify-content:center; }
+    .modal-overlay.open { display:flex; }
+    .modal-box {
+      background:var(--cream-light); border-radius:20px; padding:44px 36px;
+      text-align:center; max-width:420px; width:90%;
+      box-shadow:0 20px 60px rgba(0,0,0,0.3); border:2px solid var(--gold);
+    }
+    .modal-icon { font-size:3.5rem; margin-bottom:16px; }
+    .modal-box h3 { font-size:1.5rem; font-weight:900; color:var(--maroon); margin-bottom:10px; letter-spacing:1px; }
+    .modal-box p { color:#666; line-height:1.6; margin-bottom:26px; }
+    .modal-close-btn { background:var(--maroon); color:var(--cream); border:2px solid var(--gold); border-radius:24px; padding:12px 32px; font-size:1rem; font-weight:800; cursor:pointer; }
+
+    /* ── ABOUT ── */
+    #about {
+      background:var(--maroon-dark); color:var(--cream);
+      padding:70px 5%; display:flex; gap:60px; align-items:center; flex-wrap:wrap;
+      border-top:3px solid var(--gold);
+    }
+    .about-text { flex:1; min-width:260px; }
+    .about-text h2 { font-size:1.9rem; font-weight:900; margin-bottom:14px; letter-spacing:2px; }
+    .about-text h2 span { color:var(--gold); }
+    .about-text p { color:rgba(242,224,192,0.75); line-height:1.7; margin-bottom:12px; }
+    .about-feats { display:flex; gap:16px; flex-wrap:wrap; margin-top:22px; }
+    .feat {
+      background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3);
+      border-radius:12px; padding:13px 16px; display:flex; gap:10px; align-items:center;
+      flex:1; min-width:130px;
+    }
+    .feat span:first-child { font-size:1.4rem; }
+    .feat span:last-child { font-size:0.85rem; color:var(--cream-dim); font-weight:600; }
+    .est-badge {
+      display:inline-block; border:2px solid var(--gold); border-radius:20px;
+      padding:6px 18px; color:var(--gold); font-size:0.85rem; letter-spacing:3px;
+      font-weight:700; margin-bottom:20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--dark); color:rgba(242,224,192,0.5);
+      padding:28px 5%; text-align:center; font-size:0.85rem;
+      border-top:2px solid var(--gold);
+    }
+    footer strong { color:var(--gold); }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+      background:var(--maroon); color:var(--cream); padding:10px 22px;
+      border:1px solid var(--gold); border-radius:24px; font-size:0.88rem; font-weight:600;
+      opacity:0; transition:opacity .3s; pointer-events:none; z-index:400; white-space:nowrap;
+    }
+    .toast.show { opacity:1; }
+
+    @media(max-width:640px) {
+      .nav-links,.topbar { display:none; }
+      .form-row { grid-template-columns:1fr; }
+      .stats-bar { gap:28px; }
+      .contact-bar { gap:16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="tel:+971543052044">📞 +971 54 305 2044</a> &nbsp;|&nbsp;
+  <a href="tel:+97165728425">📞 +971 6 572 8425</a> &nbsp;|&nbsp;
+  <span>Al Rashidiya, Ajman &nbsp;·&nbsp; Al Jimi, Al Ain</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo-wrap">
+      <img src="data:image/jpeg;base64,/9j/4QCkRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAACvyAAAAnEAAK/IAAACcQAAWQAAAHAAAABDAyMTCgAAAHAAAABDAxMDCgAQADAAAAAf//AACgAgAEAAAAAQAAAZCgAwAEAAAAAQAAAZAAAAAA/+0AQFBob3Rvc2hvcCAzLjAAOEJJTQQGAAAAAAAHAAQBAQABAQA4QklNBCUAAAAAABAAAAAAAAAAAAAAAAAAAAAA/9sAQwAGBAUGBQQGBgUGBwcGCAoQCgoJCQoUDg8MEBcUGBgXFBYWGh0lHxobIxwWFiAsICMmJykqKRkfLTAtKDAlKCko/9sAQwEHBwcKCAoTCgoTKBoWGigoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgo/8IAEQgBkAGQAwEiAAIRAQMRAf/EABwAAAICAwEBAAAAAAAAAAAAAAABBgcCBAUDCP/EABoBAQACAwEAAAAAAAAAAAAAAAABBAIDBQb/2gAMAwEAAhADEAAAAbTAAAEAwAAAAAAAAAAAAAAAAAAAAAAAAABADAAEMAAAAAQAAAAAAAAAAMAEYHooxEi1fKjOZC+ufRzLnxpxF1b9E+J9E7XzT1pX+6ek5Olp7ohoaAAAAAAGgABiYgAAAAAAZiMAB6Zt82vICWHCtbzhln5y4ieNld8pjpSCQFZ+N1UiWLKorlLr113pSVKu1sQjsli05lMpPRmReJHJGAAAAAAAAA0AAAAAAAAAHlVBKKr1rDOfMtqLkfl+nskgg05iBt9fsxSGW3BOxjvsKj5Fxsd9mxTy2stPd8uDxy1on3PfOvAbDicoKp48u7UK2m8V1j6F96BuWXZGgAAAABgCAAAABiA1CkD24o4Py9uxhZtXjxew89NO2hXq0dOQR7Y842WvU2HvOGYsK/V9Vzss6++c3ZjLaxyMd+uexsqSr0hvlt51g9KMTXdzqti3Q1cLPhlgZ1rllPzlcUpWNAAAAxAAAAAAsPSpjjcROBku/ruLMKne8cNh5YNrHHbk8deY2/Lodjfy4lM+xJt3O0Nz0eWnVjUu0infK6YPruRfOQxHR0twDVfx8vd5aPHPIjbxNWScaxxtURu5t39/58vaW8ACaGAAAJoEa5Faj2vExR18LHv6sp+iQ3GSTyMRh5d+K3lb4XsuN29tDzh0wqAuQpeSFh1pH9Mvc5XWCGbkmKN2tbbp+jQjXZE2Yg08PWkcft8DGSxrDbR+kCHzEQAwBMQ0AVfYVAiyRDa7OGVP0gBhYAYMQ3iGpb1OSm55yX1zyJvsrcaZ9mLE19IN6kz4nERGo3dXAN7u0FPTiZc3o1O+AaromCaA1NpzhG3sa93zO5fnzrZ+WFggAAAAmsCtK/29OGXR5kk1dDIFV7oNIYIYMSeI+Z03lpjVqQGd3POqW1vr5a7iKitwOZVm6SHS5fSK92+j61+rislX64AnIxaBPEeLZ4cKScXfy9Tf0fOxx/pDKLSmTAAAUaktWlf+qIbfb1Nun6JJrC2MEDSM1ixAA005yyE2Lf8AKRaK3Vxpxjs2y3CuofbWqRXvS+KkNy5vSq9vFNaekCYsk0AAk8R6m25wjY1e8tMrd+evoKWYAgB0TeXzweQ/WJ741Q9W0CRggExMQ0AmJO1Pavsi75qV8ndiedfoyOA8Ek0xhPuTaId+OkR1tXZp+hYnrtiaSskIYmAIMsWniavU5dzzfj9A0BcmdaXicgA0Pnu+aGPTb1ehrsdNN0/SpghPLEE8RvFjTBCZ4zSI9GxyNGXy3n2OVCeBY0RPLv8Ab9yt59369Iz7Yuh6seLjITECMhDQAANJ1eL3uBZ4bsutZ9u51nsJAgjlJXZSZ6dHndHVb6WOWNT0WQCBIGALLESxBkJGXM3NfdzrTktEWBa4c4816B4etfntX2PQw3+q8tin6TFMjJoaFli0oBA0JGCPOPSGPWeLlNoTN93NtYCSYji0N9C/PZ69Dnbeux2QKfpQAQMBNAnoTjv+ecr382C7tt8bKtWsg42xo61x1rYW5d81VdgwOJkrg8kn5uxCxqy1XYz7OX6ejAti6Yjt58NXvxdV/qCy1dDEEhiaRDPHg9nj2uET+v7P3c+wBMQBj88fRVGHD9/FY5SZDo+qxWWKRoFkaGWon/XkVzzdbWTwuXlrmVfyGH6r3DkccmFfq6vW68Bu+cs+GcDqm734xqm5rdzy12oF3eDu1O9cCfHv+XjO1jNilMblpDTf3UOr3hZ4oTGnnczZ1bnm8LopX6D2VuiAIAKws+NlLYmZ2dnkdml6NIMLQsgPfnzqxx5xjlr2OVoRDtR8349y9yv1PKRR16Op05dXpsq2GV92cMJTzYbjnnNtSKqM3kYa7dswrY1b/lbIcV7M49ODzfwKT3OT1aXo2hYWQetOPFxTveV3r/qi2ZAAgB+eYfP2rYNeQcjjnQ09HpCK3cyE0cy2qonFvgbtb78n20uXz+3iQWSdLgV+rt7Wr0KnUxk3A0a+jYsOr8ojdkkJ9M89ky95y5DWVjf578d7l3zM3lnH7OegaZSOfa41Tuppar+fG6PC38w8/XoWONa8lWUhpiAECNSgvomtSvBEJDlyOxS9Lkgx3qWxLPOsSLGF3POzPkKaTFdedsZlRbdpbFfr1J7W57xNVdawzOvFul2Mc6vH5Uuaav4VzQ/VfreXQnd2Upd5qw9laP8AZjkK1XMk8qnoMR6c4aOqK75lWrXt9ZYZgA0xCBoA8PcPn/RuilYZdfkrHfJDX96fpGjyTu9aObG2hdKjEnscUaeWCGAjgnew4FSFh131LVKgkNphXHclYaGW8iCV/cFcaruxz/L0q93ISjNR/wBvC1wF55zTbRmcoCTAAAQAAAAFbWSj5zJhD4LucUwsyLw1Ld13ulXPT6e/lV5JOTrVPQW7vUqbaFrxLkdndztXlcAx2czs7WOq9YcpoXPdQvl1jJ8tUmORFsLE3g8YVfrLX9PHHbL+TPIzc89E+Z4YarzHs7eft3nqdGQAAAACAAAAAAMKfuNHzlhPYGWvuU5vFzcSW0xE5+1vcDHbXXttb+jq8LDHpxs08tDoYWUPHHa8PXEPLPTnVs+mj3dlfl5zXhbKHRm/Nrzfzufb2nShZFX59SGtd3r0ZIAYAAAAIAAAAAAABQmbh864XvVRp9WI5QuyFcPGUilPMlBX9n1XPiDbMDsWJ1OTbdYRs5/f39pjEJ/XFsZYRbnVndp7Q7veJ2IXEtI6fN3rThELX9nJgAAAAAhiYgAAAAAAAAAACKVteqPm71uqCkP6OnqnRtKoPOE/ldLEvoWrIn4Qv3QpzSlP5TTASTieOcH5SaaSrGf2B6nl7AAAAAAAIYAACAAAAAAGACaGAJgAB58GRBXHGuAKN5/0Ej55PoRw+fNy98pUv2LQCHyXbAAAAAAAAAAATAABpmIwQwQwAAAEMAYIYIYAAAAAAAAAAAAAAAIYIYIABghghghh/8QAMRAAAQQBAgUDAgUFAQEAAAAABAECAwUABhEQEhMUIBUhMCIxIzIzQEEWJCU1UDRg/9oACAEBAAEFAv8A7l0jGY40ZmPuQW4t8DnrwONuwVxlkG/GzxO/473tYhV4HAs+pZHZLaHSY98smcucqZypnK3GwSva6J7cbJtkZxkWD6iLjQbUYz8gKhnT/gGGwCNM1KrsnIIIcjU4OVExr0XFXbI68+ZJo5hnLmkCHvy4MiroYYa+5HswJK0jFRMbzRqJflDKDdClfvSSYho7HUT5MfJ1XomK9N3PVmAUU5jG0wAMhVMITBQdqIVGeXPb6hHZNWsXdujGZrN27dGq7vNVsa6tBpzS2FUZw6brlHWB2AFzUpWoBblBZXW45v7q2vYhcmmIPnEoPpSjAfA+lkbaS9jR5YAxHA6WJljN1jDzCaZnWer7GAy+slLiKMhdOC+LtXabFcLXaqjnlN0zXODgtJmF2VmQgNdpMichdWiJGTSiIHX3hiFWaOa7Ntlq758GQysmj/ayyNibb3khCq36dOnBsy+DUwHR88y5qYtRymhq2CmO78U4N4FybFCUGlmBWjDkljkz3Rc7I7KyjjdA6R8dpYxYl2Xk9wdM0R3Yn3EK2VdSA+nAq/1W+vSkErtNqCre2rbaQwaQEnbATp6+WtsIT4v2ZJEY0NrZy2UicF33pTUNCuzPSonI6VBLkKUWe7ekhxRpsrpoIxy4xYj/AOfL2VsXXHUuQ2eOmsQIY7Ef1GytWgAD1Ig0EeqSGy2PCKSQeWmtoz2fsSiIxobM+Sxm4NRXLDEkeUUj4biyJEgje9JjXRRucmyJI3qJ0UxrUamPe1md4zOvLndbZHNHJi+3g5jHpGkosqXY5CkyLECMiStliWLi1z45KO1YfH873pGy5sXWJHBjVkdGxsaZ9bJOnzP8Ns52bt6hMoenIm5EGPEnTZjoInYbQikYWMVWO7iLGqjk4vaj2t7mOJjEjbk8PT4xvfDLT2LLAb5tSWfXlT24Mar3RsSNvnNMkOA0pRqWFENBX6fHjgrvAklg+ExMnHpqeFwx2nkTGSOSTzIh6a8Ay3gEBkMKH+TUdl2kDU4bK5Yo0iZ5yP6cem67quxURyRsbG2A1R7rjaFIfcImyfbhqKtQiAaTqxeW2+ERdJ3DT1goZXxkzNHgJneUVi4NFyN+AhvWJgYkcMR7FNySRkTdSGiFOAuzYU/qCbawtziUpbGKumDsBi0wiyTvdt0lZ0Lbzc1Hsc3kdjk3TTZ/djfFqs3mfwGj53/DGn+XjNjUu3rGnxkWdhXyQA2NtglCHAjYImp02YsUa4TThkZYUBAuMIKlfR10AjFLhQiy+q9+AmPqN4AkuCMiekkfwGkNFFe9Zpc2VysbyM+ExHJk7W3Akx57G0FOitMOGBat0QQqetyr2lvisuos9UOGwGzGNTUVUyaCHuHKHC2mGF5pJPgTCY+STF900mb1Ifg1cV7pwCZ8joJInkullyayWIUeuHGdCQL4SmiNwgEKxyKxlSAWWeB/SlIk/j4Zm88XCuIUQ9ruZnk5yNabOpJ2fdWJyM+Sdk04lWyMKmipyTskolyqsTYC/s2xsS7MyLTvtPUEVa6o5ZK3tpAm/GmEs5JMem7dOldzXeWoSO3rG/bA280q/KA18NcPMgtFOYtlHCAakhscrYrCZzKmnh/x84hvWGsTQ4L3b0s3qOm+QpvNF/C5pKfpmeWsJt5E4CN5YvkT79bp1dZF1qjsYeR1K2SRRoZIyWI4UUWHs2VUzXKOxYdRR9OnjmdPCvybboqcrsAk6Ng1d2+N5J1bbPuqJyt+RMrmNc7T/vW5bTOgrqrpC1+6cts6CISBVdBmqf8AVWXJ1F+/yFt5Zck9m1kvVB8JHcjJXdQnIU5pXfNMskOVErB6aOeKSEmwedJ/TjVj5DXmf03EjR7KUSUkuKAe9lSelHR7m/Kcm6Y/3bpeTnqvA9eUNvuuBp+N80ybwVje+0+J246RWteOOZeyT42una8W9nFdNcAzQPZFYS20KR0Y36Hylp+Dw0c/cXwuV5auP7YF+b5l926YN7eSYeKbEqxEcRUR7wSmzEj1I7HelB88UMcKajtN8YnKxfln94U4aNX6/DUP+qZ+XAfnT7wu7eyhtGSsT3TORvCd/Ti9XTuJHd1YfNL+knDSH/r8NQ/6qP8ALgPzvkZHiMmNdYVZVa2vs+rVNeisxzkY2ysWrUgCy2ZBUEtbLHKx+Knyy/pJw0gn914XTearj+2Bfm+LbHvYzFKaq9sa+NkLUyp97F7UeltRvjbS2fXhFm3g1Jbo5rI5jZawGMAbUf8A6nRMdkIBckLp5IlZNE/45/0k4aOT6vA1vMI374H+svwbb5KUyPBq083BdNQtwcIcdNRO5Qk+0BKhTCExlw5qOo9+qduyuQCOmrkDjy8IiIIzTUmzpYIpUL06NLhFKcKrSk5k908y/wBLho9mwXg5OZpDekXkC8svwJ1Tp49OjoGAbPVlou/DUjvxcoWo4kmtJrZgLyCdd45W0DlaRUscbYF2Qw2OQ23dbiRhwJlI7lsOF3YSvmFoB2i2IM1VIx6SN8jl4PXZumo+nV+N9EsVvn2ci7t8i3rlLXNAFy4AaeLpw5Zo60pZpb1/Ofmmm/XZWENfES8i1jH08bkFEXAsVDKxLVYKZlBZLYQakT+2TA3chye6WpfZg6aC6cWTxMniJhdW2Hin3LdzTY9ObK+PpB+OsIVR+LgzuaHy07B3dpi7og9hDLPaR+nXNdI1t+eu5+VBsYkdpPGYay4Ga31obPWhs9bGww6vNaGcAGy0sISx0xF5ZJJ+US6cplmxvIzdObNVidYIV/PD4fw5d3ZXRdexRNm+OoB+4rW/bBHbP8SV5YNJwIwDJZ4ocsRhrFqEKaLRzLDZz/VPi8NsSNVxlaqhdNzU2TNkzbg/8tjP06nTKOKLPs16oI/QjwiJJoBfwyV8CXcsXDSUHOT5ORHIdAop2b7KjuZnhYL+BU8gtZYXrIZi1JIKHDriGWdcbA+J/wCMvAeB5DyxnjOCDgeLFL2pqbYfOsxbgIOyGGeRIUM+B6YvuluQrxIClYFVxCgNT3ThcMQe74phT+aTH/l0+L2td56uFxPt/Ab/ABMY5+BVD5oREdDZepmRYra21XY+lUkKCyigm5+AE/bS2Jfdo2aVuc31rNL1JHcy93IuV5bRXWBnd8TP1KGGWZA66Abw1CxjrL+eEruSPhVjqXYtTlb5lwNJGljUebEXlcxyPZxa5zHy37GQ1nqA0nrr4VKHqy4ALxwqz2MMBlqYKW6AhkjeZM3xrZHYwAqTIqOV2Q0o7MSvGTHVozslo4XYRVEQZ/JjeeSO3jGj9SuMW8PgwC9FLU8too6uWR/BMJk5345dm6WC6A3w6rCzfdMFk5HeEL+jPPbkkPs0lZNXadlnSKgCjRKkNM9LExKwRqoEOmNGhTEY1PByo1OEkjI0sZqqVDJWPcJbPCYDqfdYZYC47ioEdGjpHM4kP6beFWIpxzGoxnwzRNmiPFeCXwGl5k8IJpBs00Cx8vwvcjG2GoYIcnOMsZY4bfdo1ySkOnZHZBQAxY0IduKIOuWen4ZmgylVhp5bzX8Xv5Gq5Xux2+UAHZB/He1yHipu1c90WGVJW8JHpGyRhQ7IZXxrXWsZHl9kdZROlsbWECOxtCDX1tFOVgNeOEzysLCIRpEzypuozn/nFVESaRZHYuaarVnm+XUtVvjV3TEVWrDIkjf5bC88lIWNGsKpw+NckjQrWUfBioiW4QeMNk+omud2hpiFW0Q0f1PfVmQhSCXoc+Ncj08Jp44GnXDpM91cS5zB2Uw89SXUsCr4380U8qyLwqgHWJMUbYo/lX3y/qnCPRd0xN2rEQ8jKevaCPqgoljNNjTDgW8TRrrGK6NSZip8Br6+RCLACsaWYVZPjFxGoiOja7JBm8sEhAyj6gnjwe7DmyawGiaVdPdkjnyqmSyJFhMRqj1U4iwamCdzTE9Rf4wIWU8gEWMOD53NR7buoeE9F3yRFVtEeFO3Uh7gRKpHuAJ1EPDkUNhYETinjJG5JE2zZM6aLiJy+KtR2R7xYrGYjc29uePIYiDXjV0FTkEsJcFhFJS2whER4lygVbXxpytDFlPnrgogR/2Kojku6RYlau+be5Z5BTBlTtQQ1JuntWOCphNSSzDe25XT5LWT9cN1dVS2GM5Yi9s24bLm2KrURxUKY6d8aQ1T5Y3afBkgqT31xdyEh4OljFGMuQoDBoJphZnOc99bXzWMoIkQcP7S3o4yclZJBIqb4DZFgJT2K+sXYspYrJrkCPTp/WsrwOchk92k06OayE9tcW70MYaKfT7mx19eRYst66StjF0/FKwOuFW1fWgxx3JwaBzEPu4KfoQxawDdz0RTiKy6JDiMNOJOcqomVFFIQsMTIWftjwYDo7CmICVrt1VEVBLg0RD7gsuMwOM+qq+47OdkZWqbp/Sqq2Gacmxr1kjFa1g+nn/5rV6f2GlV3qbpVh1HOzrhOb76bWJaztRaggvUInRcUS6PZG4GIQa6qo4Q/wB190saQYvDaosNWvTfIpJYHSWB0ra4nsDHXNdOPVHBx290MObAPyOGAZ6dqKyDYcPUMFEH1NAPLOtwGNBdGCm5DJLAsr5JnLytwYYgp1fpxrVijZE394qb4bTiFIVpyeLJoCIFR7V4cjcVu+KjlyOaeJFRVVSi1YiOTOXEaiZu1uMR0uC0hpGB6dGhWONkSf8ABexj8Ipw5kl0vFkmnS24+nPZjgzEztyUzoE52heR1Z8mM0+c7IdLquDUAcORDwwp/wAnZM5UzlbnKn/3n//EADIRAAEDAgUDAQYFBQAAAAAAAAIAAQMEEQUSICExEBNBMBUiIzIzYRRAQmBxQ1OBkbH/2gAIAQMBAT8B/az00zPbKoaWcSd8v+0VLMP6V+Flyubts35GmpinfbhSB2ycX8L8H+IATZsq9mhkt+pQYeYExE6d7Nd0VZA22ZBUxH8pdCooH/SpsNMdw3TtblHSmEbS+H9SkpO+93+VCzC1m4XYjz9zLv0M2jbMSLFN/dFTVBzPcusNdLE1uVT14yvlLZ+ksEcv1GTMzNZVtFk+JHx6VNA855W/yhFhbKPGjEJs8mTw2ujmeWJnfnRXU3aLMPD+hyqWDsx5fOhlWBlmfXh45Yf50SRjKOQvKkjeMsha8PhzyZn4bVNThO1iUoiB2F76aKjjlHuE+rE4rs0ra6KLtwt99ZtYnbThn03/AJ1SB3QcH8q1tn0i2YmFcamVXG8cr300ERRxe9511gZJibTSNecfQxVtxfSHytrxNvi3+2mh+uOuyr8hhkvu2inYHkbPwhIT3B768U+oP8aaR7TjpklCJrmpMU/tihqZaiRgd9lKIxwkwN40Ye/xmVZELA8gbOyjxGYed1FiMZ7Hsud20Ym/xWbSBZSYtE0rQhndSylKWYumHDeZVj2hLRRbTiphzRk3Wiq3iLIXyp+tYeacnbVRSd2Fn64nJ7zB1wxveJ1JG0o5SXs6FFRU4cr2fD4QUMQFmHx0NrE7daSTuws/SQ+2Lm/hO9931YdNkPI/nriF+8/XDJBG4Py6kzMPu8ogklBrvZ1NTdy1kUBOwsG1l8XuW8JlVNaYuuHgQx3fz0xKazNE2v7sqafvx5vPnpVU7VA/dELi9n6cKLE2YLG26fFG8CjxKV+NkVRKXJIaqYeCUOJv/VVWQlM7jx0o6Z5yu/DdDMYhzkpJHlJzL0KaoKA8zIDExzDwndma7o44a9s0b7qSIonyn6NNRFN7z7MgERbKHhccqtqe8WUeG9Kmqigf7KsrRcMkXlAZA+YeVEQ1kV5GU2Gk28e6MCDYmsoqeSb5WXssvBKWCSL526RUksnDKDDwDc93VRURxC4u+6En4uquseRu2HH/AH1Wt5UdTLE1hfZBiYW95t1LXwsF23+yhlaYGMVZW2srRRc2ZSYhEDXZ7qbETNrC1lz+Tu6GeQWsxJ5Dfl/2v//EACgRAAEEAAUFAAIDAQAAAAAAAAEAAgMREBIgITETMDJBUQRhIkBgQv/aAAgBAgEBPwH/AC2dqc9tcrO0rOLr+i9+RA2LXUyGuV1jadMCNl+l03H0ixw5w6rgmzA84B4Jy9yR+VHdZjVYAXshB9TWhuLog5Piy4NcW8YRyej2nuybom9zoibQvXI3K7RE/Nsey92Y6Yzbdcpt2gGt0De+uZ1CtTXlqaSdzpkkLdhqhd61yG3axuNM3OoGjeonbsRm26ZXZnba4zbdMmzexB87kPGmXx7EVg3ofdbIiudcPGmTx0hpdsEIPqLGsFoWXb6JvFRu3oowt9J0JGmHx0kbVoaMxpAZcJfFR+WiXxTTveMsebjRGKbqkFOxgHvGf4ga3XVcn/lZOSus70jI47YDjF4p2AFnXK2xeMPjjM291IXZf48oslljFmip/wAbq0QnwupoYapZperX/ODPEYzGzhC332HtynBj8i53GLofi6H1CEe1kARY0p0PxR7No4SPyjACzQQGUV2HszBEVyv0gXRcoOvcdl8oajfvCNmXntPZnUce9lEWnXGdk2b6gQU54byuv+k1wdxgZAE6UnZMYTuimR1ue8WNPKMJ9IROtOGU0cf5O4QicU2EDc/1coKof5f/xAA9EAABAwEEBwYFAwMEAgMAAAABAAIDEQQSITEQEyIyQVFhICMwQlJxBRQzgZEkQGI0UHIVQ2ChgrHB0fH/2gAIAQEABj8C/wCc7TgFtTNX1mr6gX1AvrBbM7Fg8H+z1e6gVL4eeQR1EVOpWMo+yq+V/wCVvO/OjILIK/HAXM5hYxSNX1Hg+62JsOqpM2/7KkwMZ6rupGu/sNZpADyRbZIz/kVWaUn2K59dGJWapm7kr0dndd5q7aYyw9dElmcAY2Y5JkjoWvvGmSvtYGniBwVx2MLt12jEKsb3NPurstJWql64/kf3t+d4aEWWNt1vqKrNIXuWCoMStthahJM8MZwV62Sih3QSqMbdJGy4KZtuo2VuV/imiyMrYsjgpnOG00VB0TP4FWdn8lOG7l1Fzs25IO+m08SqjvQPSjQUeMwUS+9rq51Ubmy1LjkM1Susj5cVQOuyen90Y4O8l6cFjelefKFrPiEgjZ6clda3DnVfKB3dZ3lEww3r/mONEQGNqRVpAUtmlcSBgKqOTi0phdmDRSySY3GjZUDLHH3NcaBPiG85tE+CVh1wyQEoo9xqmauNzmhOklFJH8FBYs2g1envZ5W7KnMriW8EyWIU1mFAmM4naKca7LMAsCqtN13MIRWzaZ6kHxOvNP7YvkIa0cU6Gx7MfFyPq5pkGruzniU4MrrG4topoJK3Wc1Z/lj+oByTrf8AE++kDbwYFrLt3GlFFa2/Rc7FET/TIzWpsR1tOATrU3Fz829Fcii1deJWrDmn+VFrZJKzc1vMePZd5Be+yusZqweJCjtD3XmE7RX6U3qq68i9mSm6s3oLPiU81o4ijVIbWW60+pSxWcXZGY3gtRN9isVeiJdHxar0Z2uLf2hklNGhUBLLOOHPSHM3xyTXecYEIfLRAOed6i+YD9ZMMShrpGsIFHNcrvwyJuqGZoohIQKnZCbHaZGjZAKHyBvsO9x8CjslWzTFo5FbU/4Qiu6l/G9xULXPBszcaBNM0WBwFFrbMws1nNNjZQ3OOkS2d1144K67ZnGY/ZGSU0aFV2EQyGmjc1ji5GOEVjfvdF+qLTyaU6ezs1UJwulVLVQYBYnLIqr3PcfdbIpo2ytgFy/p3rvI3NWy7s7bU2azvJcPKVHFbbMRU5ngnyWcAkN2VI6Tfc41X8dIkiN2QK6/ZmbmP2Be80aFdbhA3/vTRqwz0CWB12RX53ax/ZxVL4Wpsbbx4u5IOtbzI/otmJn4W438KjomfhEsBY/ou+24fUhtKrTXsUcMEYop+7PNUCoclVu7pbNCaSNVcpBvDx/lYDsN3jputV1ufgc3clrLU7Vs9Kmkjv6xowxTLgxOZ7LNZ5zQJzHirSE82mM3r5H2RfYXFrh5StVOLso7fRXm7ukTR/8AkOabLGag+Lqoj3z8PZVOZ0UCwz8AuXzlqH+IOihxCusGClstpdg4bHYstmhxax1SQgFhoM8WE0ePusd4duhX8dIhkPcv/wClh4b5X5NCfM/jlpvHPwYYPUUxg4BOssuxLwrx0XpHBrUwwHvWnfCDS3Wt9l/RSIsumNic6SMvLuK7qQV5aI7LZtpxO10VCpoxkcfAulXTo6rVv+rH4bbJGerlTRU5DwrNXmnWV2zI0V90C06udu69ah8jXEdEH2l5jjQq2+7mqCNn4W438LGNn4RvR0PRGSxvLm8hmtS+dzPfgtYJBLK7N6EN8GQ8E+nLwbwzGlkwy8ya9uRFfBfMfKE+V+846LoV3wmTR7zUy02N1y2RjabxKLJZC2nDim2q2bbzugrvnhvIKlhsj3D1LF0cY/xX9VF+FsyxvH+K/WWR5bzCpE8az0FOtEQuysxw4q7ZzI53IFPtVsdW1OGDSnzyZuPhVGR0UTrM87TMfBjszT76S/w8Vfs7i32VZRtKCzWHvLU5oy8qEvxSYPnOOJwVInx/bsUllZ90X2KUMtAyLFPYviGzaGt2T6k8wb1VrLS4lYeERpil4VxQcOIr2y45BSyn20AIDxXzxN7lmadao2XpaVxzRtNul1dcbpX6O1hzh5QUyxTDGtMVUo2ayghlaYL9VahfPCqbabG8vDc2hQTkUk5qHWkHW5eL76Cm13m4duSmbsAvfRXl41rtINY3YOYmy0rxDeafrb0VBsMGBJQva2FvrJVktTy107HZtGYUszd65VB0WEkzjek5J+zM7HO8tVLGXt9R4KGQ7QG0rPaZDsybIHLxa8tMkJycMO3DCPfTXn408A45qJv/ALQBbjzXeyvLOVU2FpwZwT2HKlE6Bj6NK+vsrVUFEW8lAx/kOHikc0Ros7x6kD2peg0AIDxrfeFaR4JvudE8ke8BgmyOlrfxLiq+VX7NJ3oNWiuZUZdvForoerGGCmyP2FRmFE7p2XHkpX/y0N8d8sJ3hQhCV52RiVrWPBj5r5b4ey+zzycEQZn/AJwX+mOtTbg4oXJXawZEnBCz/ExdGTZOBRmc8XU+QZEJskprhh4zToKb0PZlPROP8v2LwnwswJwRs3xLXREfywKu2ZzWhamwtOObytaLW2/nVGG2bTfUFS0UeD/0m2f4c2Ut8znGoCkj9LE39i9nI9m0f46XeO4cUbM/InBd7G13UhV1QWss9GOQhfDcZWl+ivyC+5XtUF3bGt9gjY4hvbxTR4x0zt6dmb20u/YMkOQKDmuGOCB0ZDQ5/JBzjSM4FPlps18d2mb27M3tpd4+2UI420rkmvqXM6cE2UuF5mDh0TTzGgudgAnEGpe4tC1bMGjeK1TxeZ6gsD4ztMx6dm0f46XeJtOCpG0vPRa0s1UfVVO0VHRFr2gjqnyfDyaO3mI2K0uuS5NcVt7zcF8rZnZ77lHZmf8A4mxxjHiUxZUWssxvjkrtoic1bLvDOmd3Zlb0Tx/I+JQYlCo1cZ4qtoeZFSOJv3CDRhVBCe4XtG9RNlhcHNOj5uz7PqomxMvEuwFOKElp722SfTj6q/JQzvzPLQ0QuvFu9TRJF90RJG0/ZViqxy7k61quyijgqt8NzuZ7JbzUzD6q6B4Py9lHu5at+Mx8yFit2MR3HrDLRE3RIHAObTinWj4WSWHOJXLR3E3Jyu1DgVabM8A6s3gVNbpRsjYYOVEb8gLvSqY2ay9cyoWwNpjieeinPSLDYMZHbxV2fakdmVUbcCvN7Ybpb1Ne1JXiNAKB7YhjG25DjI7EnQW/7gxaU6zTfWhwKljPlKpyGiVyvynE5N5qkVhuDhJRVNqLPuU4x2ttXZq580dXWpATdTHflfxfijfFHN5KM9dELuqCkl8wyTrVMO+lxx0OjkFWlOhdiw5dv20BvEqJvTtQzDnp9u1VGV2UeOjBGEm7KPKVBbGYRSGj1aGsNWPYCpTodrMyoJW4sYcQUAMB2Ls4qrkAwVyPe0NdyTHDiFZbEN3AuTWjICipXHRrmjajxQ59mqOiBg54oDtSAZtxXtou9pxWs4uOjvHhq7iVrbSN1zVNYPiFGWpg2XHiu8/xUjuZ09Fkthl5GQjveS22XVkFl2LO9S2uTlQL5aw7c5zPpW269Id46HxnJwUsR4Hs056ZJzkBh2y0qWL/AMtAKDuzRRawhoQhsrddIfSjNbGSXOnBD5W1ujn5FybI863k5qBG9pAjGHFY/T5oluTldgxaTShQ6jJXJNlgWO6MaqkX0uaNRsc9MMDeBUdg+Gisr95yua1rrQd7msNLqDA49mnLQUwcXY+BHaW8N7SWHstDBePAIO+JSOpTBoNKKX/Tm32N4nFfqrAXR9AqRdxP+FV/6qzcei+b+GmkwxLEWuwkGY0Fx3eSaG4dEAx1AFe8yv39pXn5qhfs8k5xOB8qbcwAzGkJ7bOLt7B0iqAXP5ux7DXDeHYJ0xR+VpqUAMh4D4X5OCfC7Np0BwV4dhr2bwQbqy+U4UCkfFZHOEhqrnxCyuZXmtbFMIn51BRgtffRcChaPh1WepqZPA3VzeZYna07EZKwjIXeSALaqfutxYsXdktVW943oqOFHckxuQOZTbL8NgLyMysLIfwq2myuA9ldPdu5ORkOfBF78z2KaKrXvHeSeE22RjLeVdFDkey2W6CQtT8Nh2uJQjnkE0p4Dgg+0u1bPSt0n3K+kvpBVEYX0wsI2/hYNH47FSaLDR3jgF3kzA7oqRYtHFUhib7lqpamYeoK9HckanTfSeMiEGyvvgZdigz0tj8jcXINbkMPCdG/dKfC/dzbpuuz7LjDQFyktE5vyV4+EXPNAOKLLN3j+YVLxd/FmCF1suCo9+rCra7U5/sVW4XHqVhCz8LGJn4RdZtiRUo7DeahWrY+XYvFEnRs5nJAn6jsT4hujvW4tRY7ebnoqM1/LTUpslpjOqdkUJrO9XJdmTtVK1Vn71/Tgu8N6X0BbZLWcGBB0o1UXXNUhZ9z26VrJ6VrZALyuXheWJx0VK6afm5hsN3R43zdnbtDeAVdFQv5aG2WDLzu5JsUlHNApijaPh5vxcWK83AoNm2o1WJ4OjvpWtWqsUTpH8ChL8Un1MI8owXy/wALZ7yFXnkuceJRdNAZCqXtWeRVWmo7NZHgK5ZsB6lecbzk4szTTZ/rUqHdU6a0T/qhuoPfgqeXSB/sN3imsYKNHjYo2mzCsR3hyWGWirShDC0mZ2CpnId4r5eCN11+blS0ZuxoVdi3XDEaL0biCsZqDogbVOXSci5XLMxr5Oi7wm76Qtv8KgCpRYD8IGCf7OX6qAuHNqHeXTyKqZAVSztp1KvSvLtG1vcArz7O5kRzPRMhs0gcWtxCbbW1c1m81dNOpg3fM7kmxRD3P7AtcKgozWcF0BzHJVCwzTGCNsc4wxzXdt2pMA7kozaKPfmnhrS4twwTrS2PeyJCvSwl7OJCq3HTiFgOzitnEdVUNFdO+FcsrKN4yFG0W+Zrzwqr0dHxlCWKtytUHto5rhiFJCyMayXLmqFaqAYeZ3JCOIY8Tz/ZUcKhG0WIVbxYjz5KrTddzCiitRBjYVGWYi6E6KVtGh9XBFsAAIGCmNucHNdk1OhsA3htdFVtobf5KlsiOORTpZiY4/KpIdZea1Y9jFVJwWdUHSQPDTu9UJ/iE2piPlXdXq8HVX+n2hou3sHJzBv5tTrJKcHGjfdUnN27iHKRtml2QtZM8ud1WyLsPFyEcLfvz/amWzbEyMdoaWOVCrsRvR8inS2qg1uzVD5eQteMRTijJK2sLN6qlktGD5RRpTJbJIWyx405qzM1NXMdRwdzV47LaVVyxn9U80FEHW+0kfdayxzV4gHii4TNjumhFFE7XXr5ulNe6cuaRwKks1pecNwVzTXOYA2PGqa5jmPu5AKOz2VhYzzPOSNkin1r495MtUY6GnBMkl2aYVUU9jo60sNcEDO+6PSMFQZ8kJbYC2P0oMjaA39vdmbjzRMY1sS/loutcHs6q5JQRHMKH5Etvxioupgtf1RgmailxtL1FOf4qP5T6rTW9yTD8TtjGsCYGGraYFWkA7Nck33Tca4lNeOiLfU1St8wOSZqqdVLa3y0v+Wq2BrXHyos1l2Mmt0L/wCVSzs2fUg+TvJf3WKvNFx/MLFusZzCporBI5v3V101PZNnoXN8yOteKHylS6nYie0DFM18wYxprWqaInBzKUqjFK4G+cCjG/8AKMEEwddOKbOyYX8io2mUOIaEz5SO7JXEqsEhb0V6d5f0WNEBZ4yf5IPtjrzuQVI2ho6fvccVtMunpgq2Z94cl3sLmrPRlo2pHke6pDMQ3lVXnOcX+qqua40WD3D7rEuP3X/2uAVIWF/sgXd03qr0tZHICNoaOn9i22go3o6ey7qQj3WxI0j2X0y72WNmev6d6/p3r+mesISFi4N+yrPN+FiC49SqRxtH2/tWS3Qt0LIf88//xAArEAEAAgICAgEDBAICAwAAAAABABEhMUFREGFxIIGRMEChscHxUNFg4fD/2gAIAQEAAT8h/wDNTx8eP5gGHYv3iO74gP8Aug7/AJpwbOQHzP7Xpxjw+Pj/AIGpVp7ozJPLHg54yS3qD0qIWnw5ntfmDrnN/BORD7TjetEzKHdxlj5zK+x+5AQfigp7aQI3nT/wK/hZcyqJ9wmZa4qIPi3aBjGoKYItRk8Q0G04SqetIhFu5iiU88yj2qvtDpmBSfDiSwSa5/6I3eNRWhlSa6qDDdAMzPz3c2COJf3nH7nmMgHuLcUboqNLy4lGlEOLeglhZcXHCnIOYW0zyUQiiAJ+NWgviIZvFMPbAsxiot9Rg9R/MqL2SE4QudvBAvKWB3FdeZhBgpABAAVwxYLJK5Ls5ELDdxz+5zPSk6QsvotJ9oyGDhlLMlmDlA2Xr4XiNqcqavkmqc4JiCFLTcMi7OZZSov8TUcwHfuFPHlqjKBtO5yzA9y+DFPTBIVEScnI9CHsbEHFdShQahHBPNu7ljx99hCAKz5ih4RxZHObqNNw8lR7qoeIL7lH7YKJ2qMg6u34nIKtrmXAW13xKtUW2Zmso9r1H48h2s4nVdwh9odPG/UEQM0JMZ156EE7JT23M8l1w8ToS1FXV3DSxt9YGFAUVJ2xHYIiNjuhHYs15qFaRkVKDeYgPiXUumGr8mJfVCsDRhotEQ5H7KRCULhRY25gwYebJ+z4hLyc8xagcCCFARLuU4F7GNe8u3jmKJxXqmVLXf4lTD4NBh71WF/aQKzGeKQ/EqvZleEVtTMzXM+Ist7ZxtiIK+jDzWLVIszesYMsKns5idTvQPNlRpZhPtt7ZQIAURax3EzHuI+DNbJl5nr9iQ8N/Mfsqo+ZRQf1BzNjYz/sRcAQP9o77rYYiUB2PcrXv1CAD1Yg0IOhxLfu3eUY4N4hdiRtpT1BMjEbvyk1wPuYLl3uXnE1/wBxkB8m5yVpbxMPgMdLuXElkgtLcHiZra5l4xPfMsWmxOYJ7kc/qvj5hWi2rGyL6DtAAPFe8dyl/e8JVr3L2FW8thL4MEuL4wLQHfjBX4vwQBsBlRDxjdiYf8KH2H2z2wNUSlhdwCY7EGV9Cbly4lFbnmP72cpAGe9saRO1HW6RGPXLLIVv5hAtOv8AL+qzmK3Xvn1CAK8flTPucMYa9+P68fE+SFVV+oJMfJopB5V1TUDv5LiT48O/USKqAPLko+ghfdiG5cLLuOH4lPMrwFNm/cIx/iUVTlxEyPfqcf5lS6+j7KGfHn09fpvjYzhbigcrW/M38wB3yobNv0V9Bs8al9dbm1j/AOI0MQyMxobVKwIlPbPfE9z24It/VlA6QqFCgBOYXADSOm40h5YzJiUHBEw5Xje5kaNC6UEQVY5P08Bd5iv2qj0TUwMblEOevFfn6amo11RWw1QDIIFBY4JUZmHLO7vDiLDEorKe69y+t7op/Mx1GeRBK1dtRqrY54z0zWcBcZh+oT5iBf01nwy59Rn4NTbMVdcHqUr8D7OP0iPhA09QwHSPiqf9Rh5DyRMyr3mJBaMbgYDFfMeHOh5RXYinFkdF5U2QkMHrP9An9sDLlefGUqTN7SCMxpswzAey517n4jOGoR3H6t+JIYZWKfvR9RN7F+iYUqwi/Kj8TiAO1gmPvF4/H1L4uXBp7ihaKzTNJZsGic5N1P8AIXZ7M4yT88CBssOc6JG70rCDCuWwhWiWhXa04LNlfLbFt7JBfB4ry7n9o0gMQjdolrYl9fofMv5NdeoKI6+JtftFtj9VeSqoWMRPulU2G7ykMhWWm2LFbrPVSkDDoxnGHwtFrVQhwPEOHZaqPuQpsQuA8SlItyk9s2lgAAUH0H0s7ZMz07J8QBNOnxhaoAh39NTWyTOuXX7Q7dyvaspX7wl/SfSXDBcutTkZ9kvUGdGJdEaLyoLi2V+zF9AWwVWw7fmYAD7VHurfQhCGJpu61LviyAyXEefFfU+KmDfEuXiLxiUY5mbv+j9TLCqKBq7vKOplOo2frI/QSmnnq07mQaK/+EDCV6oDuUvRCUbQ4lGpqwn7o+IGPwmKVkHNDLboL+6EU6bBzDYkj1xHePoPIRPLPcoOU0is8Cnv6uyMiwNjwXFz26Hw+XwRhGc+O+y3fhcGtL42qFJvRMWa3Vku0PeVsErrR+RGgcjBAlPGbl/MymzMA3VqhWoWWm3i5cYTUI+SNw1Fy9+FdU7T2cX9PMt12ATmB7BnxJOIeLl/XeYsx1Kij7xQS+Crqyt0cvEVvSxdypsWD7Cbrw+VTdzKFQcDtd1Nnf6VeBqZjvwmEWXup/H0+hVy/wDlH8+PjTFkjDyfRX0cwT+MFKwzK9TH7L6xhdsKWSNw7YDo/EEaiMd11LNsiTb4hk9TKlhyNmdwKbuEsIKA6nfl/R35VFDuVRbUPp9Py/ZLxZaO2V4qVCPm/D5qraQceDn3CWp4yAlAe5rcCpjsiBfkDdwIeMCCNPFGYYDXWuYJURE1xhGX+iS6TRKue5h/n6bZAr5N+Dk9Tn6GEZfhh5IaDYigs+/ubcoKdu6rEK63muITRL1jXcpZfvJOwuuJRSecEpZwV6oXrfDUuV9L9D4HSEq+c/n6VU2pnMNkVDflmoyvFeL86OpoPcviNaWh+wJ8zbX4p/UFxAMKtsoZUi0X2S+Kj5v9Ifg8OY6H18HnOTROY8Qv0sZfi/o3CL+AJwHRJCjuV5pXMTsU5lx8Ek+IwNK1n4ZQmDb8rhJVpxBMMdyj9EnPl/g8WXel814pkP8ABqcx4PUfAx8ETywwviCeMhgrrHNmPZP450AHNR+D2C4QoW27+JiHflOor4Gd8HMyecTrohTuH/ad5RzLMcd3RLf+HESVxrmy5lNrKWkmixsnG4epePoIwjqWni7ipX8/T7uk10IOGKkTbxX0X4+weK1RNrI4i9o9Mx3OwWCyy1RDq4IJ9AcCdFMOHrxn6WTw9xpA8SAwOAG/lEu4Kvwjq7h93/BNpcsriAIL3B1qubxPwpSGz2plbrEv61Umo6nban0mloVFBZF/KVPkcd/V8Q9uCACMtcRFrIOemZ5FXRAAq1kYR3otwjuxqLJmIomfxNMjDzMvga13CDzvMlvctVLa5LcB6BO2YI6n8NJ3xD3902nxaEdwnG8j4JSNzr+Zl2rh6hXQy4ypqczmUkuJZPUzvafS5lCMEngfQT4YjrzXm204cSqAF/05xKz0fps/s8g1Nrrf3BcaKfMsR1MxXyEXdtmhf5jKiAjwqaKpLIBWFFXcuexjX/Mor3qUSzoeKsJVj1AY1Y9sReWbcCfMOOGszl5a9R7NSsQI+BcfYnjENtS9ev8AX1AZhosxMsTebjiDUu/FQxfSbDY1yyNKLZ91JhiaBEQxQD95yZWPBdayb+EzCDXQVRGrK/mPe/mfJ+YFeDkcy1873md52IKDup7LQkOSqXqIaXSQtCQlyIrs8fIBG5ZnSDjz6l0uBLJ78IMurx6oK+pdIqRjXnBnEv1piVD6K8czufDH4lRnu2CnMLKz7npuZOtQupayfiL2DUrXcA7Bhi6AhHWBr9oT0jUN790Ru/wTFpADYF+N89MP+Jmfxu9RpPWHJ7sTPZ9krqcQgntdD8zDHlns0BNRz+h8vr0upGYYun3hncw3hhFc/TXkq4rPRdsQbIGF52oE98qO5jreixnCByTg88zn3PbEph++c5GBpVnYMMkVsi7JrMLhTag3ylmLTIYydTlDhmqC64oZfx3LdyNObRAOj4IJYAh37fFzJqYrrwaIb4hIFZv3+sfUwjyq+EV271PbmN/AleDwLZrQ7nO0ffdnBBQcGLl51TmBk66cGOVOVV0+8VknfJfpI63LfKiAIIHKgvQqWKa53E5dNZinVLYtoqHcPEhY7vE1Lpl5BLGRNHqe1QbJ8kUsQLIt4eR5x1BXLt8Us/iMHQij6nxxqCDa3PxH1F2AgL7k58MoatsGLw38qWfUpWo8LQYThK6hmVlDimZihy6ftFBcbhmlIl7uBXx5fnxYRfqKmdvwJgz/ABzL5+UYc4TgRatC5TIl2kggvw5Fi+a3x8ESOL7zbEYtGPcSdtvPnKYNo8Czl7xjPXH1vjUcMlw9SgDT5Pk/EvxWfmVO05Lh5+Guwmdaz2uIkZM8VIdF8NAZ/p5USZpPweBDR/4j480BD3CktWeL6L7Yu/GcvUswJRO7vMpc16AhdkerndxIoj3kyES8zid7YHe2cwPmb7MAahp+gz5hH2NM2AGzu5iVOqmpzXM1B8PMGpahNNYyrP6DP6gUtpRwH4gmb1xAYOstgyldkTpHSEdp8pQuvwMJr8LMTbmnT9pXZWy8nqOVR/KYr+p7lsBtnE3JR3FgC8Q7ggMdn6X2nzMRGc7gDaahOcy+DJmGBL48MpbmYM1KjFfhgAh1PM4+lRkoN3KA90iFSmNkqyjorM/xwMiASXzmYUax9PMwgbQ3EYTwUVic9dZgoHrOcxC+CetdeHQrgIK7Ncs4on9fpvqI3GPeJ/8AA3GXLmdQGkyhFvhEOsenOK3Hqyku2lxyMrU93MOdgOpx1CrU6WO1/RqULptz6iSqe0v3io9xCcDZPUqmeCBU6cn0cRiZ9xJHjtHISbXM+Yc9RUlWVi+MV0cPqpW+9a7lBYivxP7lfUW+z1ADBor9XiYqAjseY5nLH+UAnZKJoIxBtKVA7rL/AMMMiBQ8+iDlbEZqiMaM+2O698ygxcDAwXoVM70EEx8jFMy+i44YZSvsg0lQq04Nb7h6Y9iwL8eoTgeHwgxDX8+S2g6vEB8epRUta+Yk36iDJwQckazzHij1Bxj8eIP2M9QyH9BBY0HyP7A4R6RiHys9yJtslDUEW0oCz3B9j6pA5sMklsfNFzEeBjhAi4A09T79x1MM/wARS+PZOEr73DwAO/HM5moVQ/ESOKbM5aRHtCB8/MuXNQZrRuE3W0Cwjn2QVwy+L9TMyU9PqNBQPdyRx2ymELFFLdwY78UT+dAV+yckbYzlsBQegb6RwKHWCpi1gQiFDBV8S6F1TZcqJMPELPVVazKKFaN5cy7XtY36mI8wDFw+m2GpUeiH3GnRmlwLmLUwziSos7y0M/RNzZbBBMg0amULi5RlgoBX5mQQFvuL2xLq+ZSnuHEqxsl8MY7StWEJDWZdQWgG+X7RWKqzqEAAzjTBQnGeZQRxM9M9tSlKkFKCWtLmRWWGm2pobTufUegeN/GJ/BGu+UEEZg6mQ59jTG8ZxdzMYuqWywOyRuVk/hiZLHnmyBHgHnoqv83+Y0CWJKOJDPGIxhn5WkAqV+wcwU7b3RGguLjHaDNge1rkzc8ZzYHpaD9rz4c5rRwkb8ObOIOPTiZktmknRYqWxdqcipjD5MG6lFZsfE7ywGL5h9VQlZNnSPnyAZlP/PsI98Etsblz9ObmXNFcpLSz8zIUtsF8zjSXDueoYWSwapBjaZFv1Nzb/Kll3ZGpQM5V0Qx8ev3KCAEeGGvQ8JHFvGMRkp6j+SfEMaRTTd4MS0F+UJqfnZG4hS9p8+gpEShWPRN9RDrLcUuh10lgDHPUs29BfUwcSB9RzBrdkXWXdsQM0NWxG1gfaAFl4YJzpbVBRZjCp8/u8QBQB0xF8vJpD62YqDjlmky6l+rlmUeoAMV8QCuqs+zzo9zLaS+uPhbqKK87raJf5iOOv8o7n2CNCeEAC9Zcn5OJ66sVN+Of34iD+y5kQvOMRa77LE6ggKpPSK0Dxq+Qmo5T54mR+SjABfsmd/4fBkLn6LNj8T/Wz/Uw/wDTTWv/ADv/2gAMAwEAAgADAAAAEPMHMMMMMPAPPPMMPMMKPMJPAPDPPPPPPPGGOrksqNHNHPPPLPHPPPPJPMNFuikuiNCqLHPPPPPLPPPPPPFNFKNgteOEKArnNPPPPPPPDIPvnMnNHwpw7X46jsNPPDPPACJhF/z7OLCIML8m2dWlPFPPFGAHEG2/yfDOJEKID02kTEPDJGBAqQ2nswwLMDNHEC19062PPKBJit17ttk79CLKFs1n12qxjPKEItkp4k/4lCCECGjqp/8At9MzTxjkFac/9vZGRwARRo4Ju/rmZzwjrKeVdNVvfwiTA0KdvNdY5rQzxZYN0EZA22xwAZkkM7+rslYQDyM9KpuayJTDBzHC+8A6pJ2hzwSxvY7GbSwLDwwB/AB90e1+jzwjBNrIahQbuOBl4vkzwMdSHjzxh4bI7xgy/F8sz4qHTzuMiLijyxC+MP5cgwzqvMK55jpi1Ljygwwwa2RhR+zzRRDxwxndYJbTzzzzxBLmAZh1HP6iS1YO6ZbgwzzzzwyCizadrWCAUawtVxbDzzzzzzzzyAw6hyQaBaRSyQpzSjwRzzzzzzxwAig5ipTQJgQjzzwTwzzzzzxTyTxAjwrySDzzzzzxzyjzzzwzzDDwAAAAAAAAwDAzzDzz/8QAKxEBAAIABAQGAwEAAwAAAAAAAQARITFBURAgYXEwgZGxwdGh4fBAUGDx/9oACAEDAQE/EP8Anl/zgrQXDVtsLJydH4mLL8sZTVdzP0/w4PVu+t5natXeUvLVVWdaxuhWmDpfaUhUbohWdHWK29Nx+hv0944RVWi7e8BXptr+4joo7MzJFeGnfxFywZu/Q+YPOhpL3VfXgleiV5o6sub5aHGp2mzK87Wz9RuVuJ7ylcpTR6jbr28IXkGb+3gcqHEj0tn758plh6cbg/q52+vABQBbALUxXryLGMV1b9ed7nVflyKcj+XH+Yf1891vPnyVCVNx0TM/UeVxrlyhkJtlj8wAKOQmyLB+OZZUdcTweQLwnS1eVvLmHoh/5FPU5evCEDAchwzSmdWqdTlqeBV17TXlGbC5+vLXevtHPmGeQ05KvCCi6HEI8LlB3Dl997c1QtBSWxqMe97cjo0GOBeXxvC6A6SuN+BF96+8eJL3UflgnuMrhpyMMJS8PVyEdphNYLEwmYwdY3Rf1Jk0GPG3aBy9DEY40yuC7TyN2JHteFC7DPIVfnkUHbF4hlxfh3gpuDAxmxDD05UuWlmYPlGEu2Zfm8btqBNOU6L6yqu4tZwfV6wlZeTGVeG86cPF0szD0gQNMIidTmv8v3/uMGUXdK45NEw+olPamBQZxGlWFd2NBBQUf35maUfrxd5asOn7gzXQ4vbTnFHUIYaGA/t5UpJgcn4e8TnSZnAc0BKRrPvbND9hFbb1jNp6wDRvqfUZe1rwpLvdekoqiOck/gmcQ+BoOyTc/UBPaiJqDFjmkfJ7JtsyqlPg1/ddXt9wq5WDD56xzKwM2H2i69fCwni8z5OsuVkxdun3Aa0IRxuT36THWmzgxa13RysLdwI0anbCI0p109YN5RPLN3CN+UaSoJVoMzbtLphi4vzLVYc3Vf2ninFaEKY00iyturKAM75vO4TdDptLbRbYYTSPQmNV6fMxfuu8VVuf+MLAZbsHeZi+rFXNuV/1X//EACYRAQACAgIBBAICAwAAAAAAAAEAESAhEDFBMEBRYVBxgZGxwfD/2gAIAQIBAT8Q/B3Ll+3rivbrUELuLEHmS8B9iOz3Kr5TYUd3xEAICtITOhcHlTQCoU7Ip8vU6Z3FFe/XCKk0bQ2jlO2ILNnHb5aty/5/SpW/iWcD7k5kwYUvIehdFse/GqzucHdIJpkz9iyQsgNNYtOVuctS+cmPZj15V2ShMcbjBCsQs6Z0DDBW5VwtOJ7zePtwvm5tHTghXvE1GfdibeLFM+bFIIxWwG8bzhjfhOi3idsbFgWAxRw4GuA3lB5AL7EOaMytjmkeS0Q7p3PvgVq21BNogtox2Hm+OKw+Yay/UeaV5YHgQjf1Qxo+4qRSFftiK4iik/5/uMfIGnxxcv8AGGTNb48cXPqCDkVdtQT2g4OkTtDjhDs40x3O4ko6HoBT/UR12gK0ildIR9E1B3Gm+3Fe+z6Rj7inwYBpgouBPSs7JA3uO2Rnds1rURAauA21Cfk/x6rfidSl/bUdtr7l7K5ZD5DHN6iHZOuvZ0MXWkC8QK9vfua/Df/EACkQAQACAgICAgEFAQEBAQEAAAEAESExQVFhcRCBkSBAobHRMMHhUPH/2gAIAQEAAT8Q/ZVK/bsfmpX7W5f7dj83L/Zg03AGS1mUIULRalKZh1TB0jncMAf5ROroqVUOA2+2VNpaLXCAYdVGy0TwymqMktisEuuJ7F//AIIN5/MdinKqDtK9i+pfE6BIXtddIiW5b0IvSfMw3d8xEo30iR+PIuJ1QKs3AnqxQIAD7gQpnhkbsAgzkxqISO0qlGgCGSez7P3V/P2DL8lwujJ7gAkWjMP4ooo9kVbEtF9QVu75WJo+kRjK/mASmKw5PEMhOjYQyBKARiSboLDCq/C3hUyg4ItVpY4Etd2DzH9Babu2icA4rFucuyGirTmZ0p5S4sxbCh+JxHB/esCEYLyL6hQkssrmZaHyOIALn9qxfkDJMwNnXaqWhm2YHydTM1Asj0Mw0E6gCW6rZmEgSdwVtgSI+pjaxwefEG9lwgsw4jOKTrBQRTxCnAW0M0PGaisraeRshoux/GVvoKvdRe3IvYJke9GNw0i9fkdYgCiM2DuKWdYpjlnTYKgiaRYGcYl4SGUBV7gjSocI9sot0vaRux0/3+3sduJtTXhlRg7ShXyS8tc1PE6Q7flXB+IHr+/JrqXXDsD9jdkWeeXYrKsWoWIA4hQTJ4gJYtjQjH0QO74hwFRbrfG8YEaoI9oq1Y5gSPgdMZtlz1pyDlMzaQJu4j219bMxDFBDi6iQN8KbLLghFZkR/iEhhH5MTECaa0sjPENuoqVYOjuW6AAzYGlj4TnjoNRlS2zpFQtsxnupw4w1fZ5hxPseyZzad/tbLRBoIKMqzfuNR8IK02r3FsYPDfw8QTYFkeJ7lz8sipibM1eDmQbEGeqKpYoti8y7qkesNRXwGsnd/mMJV3Kuzdwu6SsR7tSUVpCWcrD3FNYpyeeIVIbbGl87hUqwlo8YiFNy0hrco5xCPMVIU9iQ3ARfsbfMBckiuxDENeN0wDmvqHYRgf8A9JLH1VtfT6hiFVLEXZiZaGyNtaNyqZ8mZGo/ADYkU6GZSvBohPytcn9jUqYfCOXU0s+kcYC5T7JuC0RqiWPIohszTIlTR+3WCAt7iY0KSFznuOW2sVHOg6qOOUAshTitXLnAEGXaTFfuMeRzGUxJvC5kYMlF8tLrMuib4ZZGlzvMbFWrq5VZFsU5SXmKvctsKL5hoU4LIysDCj0Q/Dve2YUCSHktnCx1/ESm5nMbKpOWGrqPUghgHMbYU620yL4mQM23FFhwS10aj+U5hVyidT5B5lB/1XLly4ixAtq3UUzxCgksoUGAwAi4BrnuHzt46leAmjxNhIAB36Zhy8FDaeI1PpVpsV3MkA2gAfcNP+Dl7gl7Win0l4FChYV9x8Wd4LfuDTaVOvuM8F7QvyqRaj+xEq6BCQRfTCoTRHQrOyHVS/pMaDxh+Uc19qy9KZl1Ytc6nUpkKoR1X8R0xDrteojQvfSVxtW7lZF6VHnaQTwTmKGABFNcWe/+uGo5Mwwpu7fEbKbTBG09t6ML6ggFVijgigVz3B6KbgwQ1zyuOHOV5h3lUnSGrIL3+LvpMBVAPBgiEo3KAeOo0I2U8Ro88PQRDYGR7g+mgZYPMe1NFB6plgIKFT/UAwI6/wDlH4NNv+EwaLH8MJhPJhg9xBson+TwRo3LaOMfxH7QS2KMeZCsMPuYYFSMDoeJmWZd7ywVb3PESCu2+IaPPHiGxtWiJzAoar2cwP8AYByJj6LBzkSuf+bjcyMQHZK5jC7rTji/RnAQUV/ce71/MLgouXUACWPVEjVZ7mDdw0O3PUNuhY8yis6lIxbZzYIbC0jLMhtSPAalqR8SLZxFRCLDNbF3EeQ7I7BEoHLco6KuoXPnVNxHi9LqziGUAVqho+oVXsv6yO9TAqcFuL1A/AModr99TBqxGBCseTFHViI8QQdhRYkeckV7b5qXQGKtdNQNTmjeDP0/59uoqCpl1Kus0WwPMZ4oO7Vu52IIpXABWV8lzKlOeZWZUpKnEq9TEdXfll4DMLYI7R2VGrXADRoTGfILEh6pr4Fg49LhS6/EsaCdElW2w8McChvVlFF9MUpH8RAth/hASwroKglsZlVllNI6xFtNl51mJTE5+BUskKa1mKp2uHURIcu+poH7PMQDQQyjGyF8MjKw2ABDkYtHh/40onLFUIkoZtnC4fxA0crtjbNzRMwWe0Vu6yymrpSpUzcK5jb4CmgASqgXCshKO6ObtVF85ezqGbXL0EVu1nCprzCqGTQ9sSNfRVGELwpT0gKsLBt3bB+sKsl0zNUru6gWKGETlgVMWmGGYAmRwyuKDr5W2aIcDbG7yZgA2bPM32qHZxpiqbH/ANMPC/QuRwpRnr9J+iy4x3NS0VcjTMeMYDEo1qYY5s8sapjBiFFFgXLJVS4jmI1hBaMTEjkujqpvqt1LyMpBl6HZ4kTn8AR6hhcryZ9MCkFFf4TBX1wEyL3Y/wDI+ETaP6xVIGmB5YEtyzPtAZGuqrYF5Ie1FWWjtjoxCE7IcnpguVj4YOYsLFaRsh0vp2xlo2YYfAjgysGk6uG0KKbMl/qfm9UAPL1HnKWur2EUbTcIQ56xaiQruVUSEMTBBjD2Ed9Q24Q1AVRXmM0sgp03cZNNw7Bb3Ct3WHD4AStGNVCHcshRkM4dNTDk+8fojYusDmqUzGwzY/N3MSW6oJxRzHaH0V5MXMW06xeAvnMv/wAhcC2ERd7u5cWZXwNxidNkoNmTBPgXIFfbHsYwZmJtVlbg/Xhy8QzjlqNQV01yOYJghRVRBZ1lGUeuUsHuCyJD5C+YxWIsSWsmMHLau3uo46EJKEH+5UxtClxgl8ngZvzkvUbhwBB/BMt9mm43jfkhvQC1XBK8vbIfiY78izxQFwe6g3A0O6LuYm0Ny88Rx79sn0Q4gqAi1D4XxuLUrmYalIFnR5gUG4piXjY1GLj16fKLNbgeS4lpc/pyA5uMdSllnas3gWIS6HoSxe6oYugLgTaOYF/NpTFiXAxS1OIcRJRUEKhpVjzLgyXFBfcYZqwFcn8My7szB8Zl/wA+pdO7ZeYf6CJKlp3FFRxiXZ7FlduHMNABxz5dkRwcJVwtO6G8TCiqAoXbLiK29HE8EaZYb+BizUdwcRtFWtsMozxy1EZibDo9MbKnVfWBFwda/SnFcxRBdjd+I5JeT7YGlS/C8mZk3UItQhGDKfGpUW2O2oDpxMg4GswRAMF51pD29X8lk2eJblDYOEtOY7V+MGq3bDQoqVyD/YamvjG7HI3KkcQJqOzOoA8KpFtid1MWw2xYMVFvcLJwIcRUwpnbzHbFYYIqZzDPwBOIOZ37imS3vzGUEFCuZWXQsxZvErh5f0t0H1KXOWtiQBh0YIg+BNIy7mKP5l2zKBiHwuJuWiuKpqBBfVYhwozcxSFFRmOYwVTSPYwQ1MPHwwu2QKHGWBTVYuQqJeSGRe0Yqmtsh1cc24tntcvOuyOjiXmwnLFYi0Ww1XEUiPgMTOJFpaOpeZhl0QNSI/dFRza6JokjzJRPH+ZfzcuGtcy0EK23SM1jonomnodG3KUqO4wRqbhuCOIlRY9XwSfjR3D2boIOiDjgcD0w/kvrpsLhuPch5nLp4lobNtIm5baMpucwbf0UgsBSRLKhVaT/AEirB5atG7gzLk/XwV1KuOIGYPcPiriSVfxPDCMdV2SzNII8mYii7F9D5qVA7Xh8pfxcYv3KBxC1OAqLGOY5tjUpLthiKSxmXGFXPGB6AfGQ7bS6tVwQyXBwJZK9Ze2U9MsZtkC9+kRUSrRPQd2R0KMK7xZzBRYYCjxEnyUMPSZjFp9Qyw9UBiBVHPIwlzIxHzLlX8XFvUyS6hHuGo5LOCZ0pEX+Kn/0nab2edz/ADKpYi8AIfzfA+C4YKY6l5jhAglQIq9NX7hcVW5FE/yPoncujDRxD2CasvJazGYmo2zackA7tmFZwsuYDhieb3MlW/kS0wwp57H0LOZEobQC4hltd9VNLmXw0jn5IsN/CTCNj4Vn8SO2ZUz+c/Szjm/9k2PJ+UcsHw4vKEqXFj4OOHxpFZEuLFE6UGWnnAxm5gd0jAV/LCbvYH8KlVhUZbfRGBQFVDCsIf7AZRnL2UMvVTxM8J91AuuwM0+uoTOD/Uewgxl8KhA+R8BMIQTwRWvE0KnTAIO/0bY5cN+MRxH0GYXMIIxXBtM5kSrY0ItQtKuUEQIJ5Sh2Dwt+SA7JmQsmUVQxCxAXkhFKDpjZLX4BeIpQjrA2RBpeFwOItaKjBFjJAxOfg5nMNfFfFw38iwPuOE8VPOX90dv6A+3ix+COYo9cywhGXUU4TAjd4igzHJDEvERhiFx2lhum8gWEbFXgclxnpytMB9omxaXYlyjaxBs2BcBMPkM5VRVRhBYxPW41N3ETsJ1EFhZDU5lQjucS5c0YfBfg+X5nOeBv7ptYzCDUqktun5lvufhFuRO/G7Kx8GWolkOczJEKhruIcOo2A92XoB1zBjvgIEwNuNBTryt3+DA1VFTCiD0egAk3XAbt8DMsUerUUa+5UU1YiuXAejFJKK7L8Dcv9iSjFjf3CiXL+V7z1fEVhoNDk1DUpGbe0Ag9SaJo+QHMyAHuJQbvIpkC+o7zlDJZmDW5dzibx1qZbnu5OiOaeo/GEPqOfi5UtjI5KN2b+YsM6UQgz9waJhn4Wo4LimNpBBrBtY6sFiiZNqYJXOIjozTmfuAQAf8AsFTKKRahilikMdxDxHO7IEQhbXiyvJNXzeyAFq4ig4Vptme1xsKwe48Mbfb0d4goj1KAchOE1MbAVlXVTMa06MQukzcJQ2KF4yw8E0oL+YmUy5f4EQJhlsaPuJnNC9kWSHmaCFsS5VRY4IPc3qfezE+oqXmYy/pT+nYQIpQCvTGWWH5SoUJ3mGbjF+KmbDlFd0GRZqPQGHtlgkuavRMBIVaLdvJUIoEFyMBd3iAlxfPZKg39QvshN+BjxQb27dtNEIX1m/xYhV4BvdIfNlKWs6BCLN6ikQd1zCEJhObqFkW2kgwNQymTi55RWHqCia+4gFF5Myy2fVw8VxkbeDpj0mJchZogZ8WLfRWIPZWnT8cpmQFTfwdpXbHSoXIi4xTX5dX6TjWCYhfJFzdzz7uB4dMA9xInwuoNihqDWuDlmBotoZzn8JjbbxzAue2flictzZilo1N6+fWEYqBgK2lAM1B+4qyAE5OiXde0oXzTMaozj+Dc+xEq8Jewrc8AxIbrkLC7hNwloGsEIEWzJxjmPR2EVhVgZQHIWPKCbvREaCMirZV63BUvAeOYrJyBdeoo6mtqzYe4RrYyevgoIi4GZgICA4CDRcR6YH5mjiOnlH6XFHWZoAzHAcws3e8wUY80WCNhlCZIzOPiUbbinynQsW6jYGqiDa8BLlGq/wCwiSg+LKDKxg56cKuZKpg+mZvBalQMwjnO4FybkADqVaSFIEGkNcRbptq4baXSNMXqA9MCoTlWXtjWzM2bj2tAM8N7CW0y80S/pj17EGsOkMFS9AF8oQpSuGGRrVhka3DfYaZgeYsYObQvWA3D7dZnniY/zwXRC4s8PB+nBvZCUtsf/svEQyNxIHGyanlGhxFKgXMICKnLa54G4geUfvOmKba69/VlIZicBXAh3RuWZnddliUpr6q5g7AiZiPENTUrqtzj0JnGpixjNDMHHbXnxiEFsaUswFMTyQcJDmocCOqKmcrDa8YjGrbhndQOWVG0qoVdNB6RB+wCkFyhei48tGA2K2MGqUzxGTsMv4FjW4bDGKUY5YGjMTiPXBqFlrm39NFkMm3CPJKbQdpsWoAcKye4LFm5lQOAMsiESDUqCEskxEMrQ2EKDYihCyI7LQYiGm6FqRWD1D2Acu3EvvoeYeblmwtliVaDC2vEWrdpc0TPOo6DuLk5sieniULm8xhzEXkRWzqLKacFXxBVr3sydwGxWjOCHvGxwXFsNjLyAhu14ZI+gKGcVueJVsVuotl+5na5PhRmgMrlcwjTOw8QxuYSgcHcpluaYp3NcAK9sWzYZ27TZZ8Hy5KcJEpu0V3ZAcDEoui4aa+CZSuFCkyS0wROVUWTErQCnQfTUdx3DQacsSjeB9swwZtj1BqZfAG4vZpCjJl2vgO5RCtYxExLKUNdQT4NFystlfVsnDQxwfiAwANKYvuFnWUBV+Ijae2pXILjaohdGwiW3L4gW7KQrAwcRoE1F6MXCzLl5Zp7HzK1zLvHIlyqKKDkJUEoUt3VS42HC9fCS1OGoYczXFunk3ABYmHlAXA5VwFQ0Hn4P0CA4WrprzBJKQeb4ZSotZszUQTKUCH4GfgS/NWC6lB6pDNN1GpsBFhbhfcpgJVmLsE6tRn7s9rPK7m5tV2fNaTGMvEtZaPMJBA1TmUihTxECDfFEwovgjAHvDc9HcQyiQe7VLBhSO6gSfagjaU9rKiPMVR3wY5CLggcAQBdU5Q5/mYsa6ckIADaAjAcQZHQQpGKnfxHmGm2Qc1DNri4nBqUTTg2zJHHRqGbepqEDMZaLgDIW/0D9AnKupwg0jiYYaHtygXmE6Xo9zkNskIWYNzYpgXFqjGPcOwqWNnrqID0IbXk6mCQLPgNTmRRsh9porIf5KCkX0/yfWGT/IxkvpMt9kMwnowhgwDwRuF1a4lcR5WIxgTIjuVH0XqAeYUq/NERroAdHMOp+AT7ljdtUnskBcecKeG4Q0PsF6IjGwlWzjcRa3XER0NcTLbvENX6Yxb2mPTXMd0mWpPgCAaAr9B+lYUIzA5tA6SGXSHmAsB9RbGbNRVU4dkO0rmcymwxCuxqAFU5hTdMsIxuVeJYHJdZ8m4JVFY4OJWG/lM/DjxEWW09dwM7taObh4etFARVOoQW8jCgtdpH/kD3Fgr+cyn/AChUf4lvcyzwfkd/95CdYFQpBEBKLwy+KE7GjNL9jRcqmEc6vlMCPGKcQw5ZiRbzNHox7Y2bZwPBFeGzfkirZ1PKuoUOs0yDkI3vxn/gwpw/aGm2CUADRmV1FhtMKRMXC22nECnrVXMMmApljIutsDdpNP8AABDKUFLF+mWAyvC+hJoUOyr9kKQ3fI/pOga0sBLBjavwvNwMtAjBrmLXtVgXTUQWyGh4SSgrmAK+4LEFuoi02/Uw4HMu3GEjdjEWxmKlsxjppKQaufVgO42SVJlGFShvKg5PzI0lXTzBwI3czXqwYHc0KA8cEutafz/zSPYzGJZgMBzUxRL1rXIiwhruFM42ECiocRUVy6O4ZlTVtXcAkNlMFXnUR6pVXOadBLvjpDR9iyu96Gn2xSyli58ItWU9mPeDMhZgQvTb+oOpxx8JSAYJQZc/KKL5VXLxcSkNgJ6XLmdhf8Yh0usSxgavmZFNzZfPiGbWQszLy3L5FkNj6mR45eHqPDYPQuWHSRtMLHmiGwSsR+OxiYM1rGm5a+pz5gsglNMugAvpGccaVeQwsrzFGDf/AFdEgFI1CsHUYwVFd9vpFrsd+epVnJ4jiBYDNjA9wVAcfKucvDOkcBbyGRiw6BqDku4A4vdCysxVLFXtUFoTCgfqATWL35Jbr13GfuVY7RIfdSjZO4Q6TmHjHGhZSDuzMVCoODMG1i2Yk+5a82sn1BwdwgH3L8wxfJLoirHyxNR0ECInVui/hKAAejcIaYuwuoQshExbcvX00RC7+4fACxJKr4QkEqJSjwhIBHklhgeoinIx2d1wyAWDPMseEQOfP/WpUqgEaxItd2STlvqAQprw9MYUtkOYBpZTIqj5llMoHKF2yp8aNoQTcaX8ACjVfmb/ABxgOA+pkDOGA7ZbBpp2upe1Las5EXSW9DcM/lSBp7gPhEQzQt03FrCCZRKNO5RWPYphSxaDX+ZZqNgFepkWuO8whSQDnQxwbNHUZbcEPuLR4FDh6GA9XiK7Klti9mL7Wvi4Trm0FMh7gSAsCJd3VhLRBk9DxMzpLy+1B2lLbPIb6v8AYqA4p5IFiqFYnkj0bU607TxGaKum2uY9ty1WXakP3Jp1MFrzC4Au6jNSFcLqszAetyiY1zOFqxFyTVVAZ4203NOCJq/q3KBfNUdH4mFVRqmucSsHcbm1JbDIobdvHEXuE9xnRNpvFDB5mUKDvKEIatFiPzrSUrZXaeo2eIbCV00VNvZAMlAEDpXOodVmJwPnziLEo0QF/wCIhLXQq9bfEThlSpXsJehGU+gwYcw2RyEL091FnNs1l28fs3JQm0XL/AUFP6IxdKVr3IVhIwdwSFqgv6XHEagKObhaylYzMGJlsxkhxYsNfUloY3T6jguhFHihKt9BWBSzxcA7SAoKXMzgqkt2kD8EwjHJNAcYNyB9Rkd3KpTqAqh1zRC7zDfqI2UtIwuwoUdecRQYwZ6yrJLkWTG04MSmlhKFBCslJLk3VOw1WeLifaFOQMKJxurSiFxkT+5rk5mDkFrY8hBxmEOYCwVKwPuAkUB1fv8AanlnuLesV1BP0IE+1uBFug2nysQDTY+I5ANaKR8MDgRQpvFss7cuZLzaTACkRahLM3dwmQ4SlBRfmHhboIpEt5uGlp/pJYi1NgXSxf4iUC0yStCyy8GH8RPnf0vmpn4zMngj3wQtXUwvDv0/7K+2Ow5sGOArhiimCCaKA0vtcE8NljKtD8zYOACi9jBXtkoFdYhbWCryX8y7qWr4HcbUFIrb0wAAMMBgE4/bm5ijMhYzlV6MnkI+BXTUeYkFRpQ4eoeEs/EGrRvNl6gUKaLPySnZGba7b9wX6gy/SLhYzCHKQ6dQwASuIfc7+Eol75ZFZQGUQVYNe0vRk26lz/ME5cW1HKGayc66RRukQAXuo3pFMrPNEeHGRI+mBmboMpVhY5PZO6RBB4SDUAAOB3UGh/cqZUqEz7wWRDJLSvL6m8BRJH5mOUqWHzHg8lDEKVgyjp+ooUUboYvqHWU04p9xdVdD0/EdMvIai5VbuL6O5YJrakPabmG3H2gSruxl9xpPugdnZzQwKKcomVmFXtTEIRcsvTACgrD/AEl4NNDLzEuzr94fKsMUh/2hMPRH/EJ4BxHJJqlDwLwXGFK7CP8AkIf4iM7jziAUODIKd8UAOQi8GHtYP5hkccgt+4YAMHj9ifsD520FQvJcEsdEtd2S/Cx3S+bS3f4Mo/wwGg+kqmAHiN3zUW8U1NOoWudfsj/lf66lfsaZTKZT+i5Ur5qVKlf8alfNSpUqVK/Y3L/RUqVKlSpUqVKlT//Z" alt="Papa Dola" style="width:46px;height:46px;border-radius:50%;object-fit:cover;">
+    </div>
+    <div class="nav-brand-text">
+      <span>PAPA DOLA</span>
+      <span>ETS. 1985</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#order">Order</a>
+    <a href="#about">About</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-cart-btn" onclick="toggleCart()">
+      🛒 Cart <span id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">⭐ Est. 1985 · UAE</div>
+    <h1>When <span>Flavor Speaks,</span><br>Dola Leads.</h1>
+    <p class="hero-tagline">Egyptian · Arabic · Authentic</p>
+    <p>From legendary shawarmas and crispy feteer to hearty grills, pasta, and indulgent desserts — every dish carries Papa Dola's promise of authentic taste.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-gold">Explore Menu</a>
+      <a href="#order" class="btn-outline-cream">Place an Order</a>
+    </div>
+  </div>
+  <div class="hero-logo-wrap">
+    <div class="hero-logo-ring">
+      <img src="data:image/jpeg;base64,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" alt="Papa Dola" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><strong>100+</strong><span>Menu Items</span></div>
+  <div class="stat"><strong>2</strong><span>Locations</span></div>
+  <div class="stat"><strong>⭐ Very Good</strong><span>Talabat Rating</span></div>
+  <div class="stat"><strong>1985</strong><span>Est. Since</span></div>
+</div>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <a href="tel:+971543052044" class="contact-item"><span class="contact-icon">📞</span>+971 54 305 2044</a>
+  <a href="tel:+97165728425" class="contact-item"><span class="contact-icon">☎️</span>+971 6 572 8425</a>
+  <div class="social-links">
+    <a href="#" class="social-btn" title="Facebook">f</a>
+    <a href="#" class="social-btn" title="Instagram">📷</a>
+    <a href="https://wa.me/971543052044" class="social-btn" title="WhatsApp">💬</a>
+  </div>
+</div>
+
+<!-- MENU SECTION -->
+<div class="section-header" id="menu-header">
+  <h2>Our Menu</h2>
+  <p>Fresh ingredients · Authentic recipes · Unforgettable taste</p>
+  <div class="gold-line"></div>
+</div>
+
+<!-- Location tabs -->
+<div class="loc-tabs">
+  <button class="loc-tab active" onclick="switchLocation('ajman', this)">📍 Ajman – Al Rashidiya</button>
+  <button class="loc-tab" onclick="switchLocation('alain', this)">📍 Al Ain – Al Jimi</button>
+</div>
+
+<!-- Ajman category tabs -->
+<div class="cat-tabs" id="ajman-cats">
+  <button class="cat-tab active" onclick="filterCat('ajman','all',this)">All</button>
+  <button class="cat-tab" onclick="filterCat('ajman','feteer',this)">Feteer</button>
+  <button class="cat-tab" onclick="filterCat('ajman','sweet-feteer',this)">Sweet Feteer</button>
+  <button class="cat-tab" onclick="filterCat('ajman','pizza',this)">Pizzas</button>
+  <button class="cat-tab" onclick="filterCat('ajman','lunch',this)">Lunch</button>
+  <button class="cat-tab" onclick="filterCat('ajman','appetizer',this)">Appetizers</button>
+  <button class="cat-tab" onclick="filterCat('ajman','salad',this)">Salads</button>
+  <button class="cat-tab" onclick="filterCat('ajman','shawarma',this)">Shawarma</button>
+  <button class="cat-tab" onclick="filterCat('ajman','pasta',this)">Pasta</button>
+  <button class="cat-tab" onclick="filterCat('ajman','fattah',this)">Fattah</button>
+  <button class="cat-tab" onclick="filterCat('ajman','sandwiches',this)">Sandwiches</button>
+  <button class="cat-tab" onclick="filterCat('ajman','grills',this)">Grills</button>
+  <button class="cat-tab" onclick="filterCat('ajman','bakery',this)">Bakery</button>
+  <button class="cat-tab" onclick="filterCat('ajman','manakish',this)">Manakish</button>
+  <button class="cat-tab" onclick="filterCat('ajman','dessert',this)">Dessert</button>
+  <button class="cat-tab" onclick="filterCat('ajman','drinks',this)">Drinks</button>
+</div>
+
+<!-- Al Ain category tabs -->
+<div class="cat-tabs" id="alain-cats" style="display:none;">
+  <button class="cat-tab active" onclick="filterCat('alain','all',this)">All</button>
+  <button class="cat-tab" onclick="filterCat('alain','shawarma',this)">Shawarma</button>
+  <button class="cat-tab" onclick="filterCat('alain','value',this)">Value Meals</button>
+  <button class="cat-tab" onclick="filterCat('alain','boxes',this)">Box Meals</button>
+  <button class="cat-tab" onclick="filterCat('alain','fatteh',this)">Fatteh</button>
+  <button class="cat-tab" onclick="filterCat('alain','grilled',this)">Grilled</button>
+  <button class="cat-tab" onclick="filterCat('alain','salad',this)">Salads</button>
+  <button class="cat-tab" onclick="filterCat('alain','drinks',this)">Drinks</button>
+</div>
+
+<section id="menu">
+
+<!-- ══════════════ AJMAN MENU ══════════════ -->
+<div class="menu-location active" id="ajman-menu">
+
+  <div class="category-section" data-loc="ajman" data-cat="feteer">
+    <h3>🫓 Feteer</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Pastrami Feteer</h4><span class="price">AED 41</span></div><p>Flaky layered feteer pastry generously filled with tender seasoned pastrami, served warm and crispy.</p><button class="add-btn" onclick="addToCart('Pastrami Feteer',41)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mixed Cheese Feteera</h4><span class="price">AED 37</span></div><p>Delicate layers of crispy pastry filled with a blend of melted cheeses — golden and flaky.</p><button class="add-btn" onclick="addToCart('Mixed Cheese Feteera',37)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Vegetable Feteer</h4><span class="price">AED 37</span></div><p>Flaky layered pastry filled with fresh seasonal vegetables, baked until golden and crispy.</p><button class="add-btn" onclick="addToCart('Vegetable Feteer',37)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mixed Meat Feteer</h4><span class="price">AED 41</span></div><p>Flaky layered feteer pastry filled with a savory blend of seasoned mixed meats, minced meat, pastrami and sausage.</p><button class="add-btn" onclick="addToCart('Mixed Meat Feteer',41)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Sausage Feteer</h4><span class="price">AED 37</span></div><p>Flaky layered feteer pastry filled with savory sausage cheese and spices, baked until golden and crispy.</p><button class="add-btn" onclick="addToCart('Sausage Feteer',37)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Shawarma Feteer</h4><span class="price">AED 36</span></div><p>Flaky layered pastry filled with tender marinated chicken shawarma, onions and tomatoes, served with garlic sauce.</p><button class="add-btn" onclick="addToCart('Chicken Shawarma Feteer',36)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Minced Meat Feteer</h4><span class="price">AED 39</span></div><p>Flaky layered feteer pastry filled with seasoned minced meat, onions and aromatic spices, baked golden and crispy.</p><button class="add-btn" onclick="addToCart('Minced Meat Feteer',39)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Feteer</h4><span class="price">AED 39</span></div><p>Tender sliced beef shawarma layered in flaky buttery feteer pastry with garlic sauce, tomatoes and onions.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Feteer',39)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Feteer Meshaltet</h4><span class="price">AED 38</span></div><p>Delicate layered pastry served with honey, black honey with tahina and mesh cheese. Crispy golden exterior with a soft flaky interior.</p><button class="add-btn" onclick="addToCart('Feteer Meshaltet',38)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="sweet-feteer">
+    <h3>🍯 Sweet Feteer</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Sugar Feteer</h4><span class="price">AED 27</span></div><p>Delicate layers of crispy phyllo pastry brushed with butter and filled with sweet sugar — a golden flaky dessert treat.</p><button class="add-btn" onclick="addToCart('Sugar Feteer',27)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Cream with Honey Feteer</h4><span class="price">AED 1</span></div><p>Delicate layers of crispy pastry filled with smooth cream and drizzled with golden honey.</p><button class="add-btn" onclick="addToCart('Cream with Honey Feteer',1)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fetter Mix Sweet</h4><span class="price">AED 37</span></div><p>Delicate layered feteer pastry topped with a rich blend of chocolate, Lotus spread, creamy filling and crushed pistachio.</p><button class="add-btn" onclick="addToCart('Fetter Mix Sweet',37)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="pizza">
+    <h3>🍕 Pizzas</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Margherita Pizza</h4><span class="price">AED 25</span></div><p>Classic pizza with fresh mozzarella, tomato sauce, basil and olive oil on a crispy thin crust.</p><button class="add-btn" onclick="addToCart('Margherita Pizza',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pepperoni Pizza</h4><span class="price">AED 34</span></div><p>Classic pepperoni pizza with crispy crust, tangy tomato sauce, melted mozzarella and sliced pepperoni.</p><button class="add-btn" onclick="addToCart('Pepperoni Pizza',34)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Hot Dog and Pizza</h4><span class="price">AED 30</span></div><p>A delicious combination of juicy hot dog topped with melted cheese and fresh toppings, alongside a crispy pizza slice.</p><button class="add-btn" onclick="addToCart('Hot Dog and Pizza',30)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Vegetable Pizza</h4><span class="price">AED 31</span></div><p>Crispy pizza topped with fresh seasonal vegetables including bell peppers, mushrooms, onions and tomatoes with melted mozzarella.</p><button class="add-btn" onclick="addToCart('Vegetable Pizza',31)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mixed Cheese Pizza</h4><span class="price">AED 34</span></div><p>Delicious pizza featuring a blend of mozzarella and cheddar cheeses on a crispy golden crust with tangy tomato sauce.</p><button class="add-btn" onclick="addToCart('Mixed Cheese Pizza',34)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Grilled Chicken Pizza</h4><span class="price">AED 34</span></div><p>Tender grilled chicken breast topped with melted mozzarella, fresh basil and roasted garlic on signature thin crust.</p><button class="add-btn" onclick="addToCart('Grilled Chicken Pizza',34)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="lunch">
+    <h3>☀️ Lunch Menu</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Shish Tawooq Meal</h4><span class="price">AED 30</span></div><p>Tender marinated chicken shish tawooq cubes grilled to perfection, served with fragrant rice, mixed vegetables, fresh soup and beverage.</p><button class="add-btn" onclick="addToCart('Shish Tawooq Meal',30)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Kofta</h4><span class="price">AED 30</span></div><p>Succulent grilled chicken kofta served with fragrant rice, fresh seasonal vegetables, aromatic soup and refreshing beverage.</p><button class="add-btn" onclick="addToCart('Chicken Kofta',30)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Grilled Meat Kofta</h4><span class="price">AED 30</span></div><p>Succulent grilled meat kofta seasoned with aromatic spices, served with fluffy rice, fresh vegetables, fragrant soup and beverage.</p><button class="add-btn" onclick="addToCart('Grilled Meat Kofta',30)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Quarter Grilled Chicken</h4><span class="price">AED 30</span></div><p>Tender quarter grilled chicken served with fragrant rice, fresh seasonal vegetables, warm soup and refreshing beverage.</p><button class="add-btn" onclick="addToCart('Quarter Grilled Chicken',30)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="appetizer">
+    <h3>🫘 Papa Dola Appetizers</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Hummus</h4><span class="price">AED 22</span></div><p>Made with the freshest ingredients including chickpeas, tahini and lemon juice — a creamy classic dip.</p><button class="add-btn" onclick="addToCart('Hummus',22)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Hummus With Meat</h4><span class="price">AED 34</span></div><p>Creamy hummus topped with spiced meat.</p><button class="add-btn" onclick="addToCart('Hummus With Meat',34)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Hummus & Chicken Shawarma</h4><span class="price">AED 26</span></div><p>Chicken shawarma with hummus made from the freshest chickpeas, tahini and lemon juice.</p><button class="add-btn" onclick="addToCart('Hummus & Chicken Shawarma',26)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Hummus & Meat Shawarma</h4><span class="price">AED 34</span></div><p>Hummus topped with our signature meat shawarma.</p><button class="add-btn" onclick="addToCart('Hummus & Meat Shawarma',34)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Baba Ghanouj</h4><span class="price">AED 24</span></div><p>Grilled eggplant mixed with fresh vegetables — a smoky, delicious Middle Eastern dip.</p><button class="add-btn" onclick="addToCart('Baba Ghanouj',24)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Muhammara</h4><span class="price">AED 24</span></div><p>A dip made with roasted red peppers, toasted walnuts and a touch of pomegranate molasses — perfect for dipping.</p><button class="add-btn" onclick="addToCart('Muhammara',24)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="salad">
+    <h3>🥗 Papa Dola Salads</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Fattoush Salad</h4><span class="price">AED 25</span></div><p>Crispy tortilla shell, lettuce, tomatoes, cucumbers, mint, onions, black olives, lemon juice and more.</p><button class="add-btn" onclick="addToCart('Fattoush Salad',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Tabbouleh</h4><span class="price">AED 25</span></div><p>Finely chopped parsley, tomatoes, onions and lemon dressing — refreshing and healthy.</p><button class="add-btn" onclick="addToCart('Tabbouleh',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Arabic Salad</h4><span class="price">AED 12</span></div><p>Made with a mix of fresh vegetables, dressed with lemon juice and olive oil — light and healthy.</p><button class="add-btn" onclick="addToCart('Arabic Salad',12)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="shawarma">
+    <h3>🥙 Shawarma</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Arabic Mix Shawarma</h4><span class="price">Price on Selection</span></div><p>5 rolls chicken shawarma + 5 rolls meat shawarma in saj bread, served with garlic cream, tahini, Mexican sauce, pickles and fries.</p><button class="add-btn" onclick="addToCart('Arabic Mix Shawarma',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shawarma Plate</h4><span class="price">Price on Selection</span></div><p>Premium meat or chicken shawarma slices marinated with secret spices, served with fries, tahini or garlic sauce and pickles.</p><button class="add-btn" onclick="addToCart('Shawarma Plate',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Kaiser</h4><span class="price">AED 13</span></div><p>Tender sliced beef shawarma wrapped in a soft kaiser roll with garlic sauce, fresh tomatoes and onions.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Kaiser',13)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shawarma Chicken Saj</h4><span class="price">AED 16</span></div><p>Tender marinated chicken on a vertical rotisserie, served on warm saj flatbread with fresh vegetables and garlic sauce.</p><button class="add-btn" onclick="addToCart('Shawarma Chicken Saj',16)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Saj</h4><span class="price">AED 18</span></div><p>Tender sliced beef shawarma cooked on a vertical rotisserie, served on warm saj bread.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Saj',18)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Shawarma Mini (6 pcs)</h4><span class="price">AED 37</span></div><p>6 mini chicken sandwiches with garlic paste in saj bread, served with garlic sauce, Mexican sauce, pickles and French fries.</p><button class="add-btn" onclick="addToCart('Chicken Shawarma Mini (6 pcs)',37)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat Shawarma Mini (6 pcs)</h4><span class="price">AED 42</span></div><p>6 juicy meat shawarma mini sandwiches with tahini sauce, parsley and onions in saj bread, served with fries.</p><button class="add-btn" onclick="addToCart('Meat Shawarma Mini (6 pcs)',42)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Maria with Beef Shawarma</h4><span class="price">AED 36</span></div><p>Beef shawarma with tahini sauce in maria bread.</p><button class="add-btn" onclick="addToCart('Maria with Beef Shawarma',36)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Maria with Chicken Shawarma</h4><span class="price">AED 31</span></div><p>Chicken shawarma with garlic sauce in maria bread.</p><button class="add-btn" onclick="addToCart('Maria with Chicken Shawarma',31)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shawarma Saj Mix</h4><span class="price">AED 31</span></div><p>Two shawarma saj sandwiches featuring a blend of tender marinated chicken and beef, wrapped in soft saj bread with fresh vegetables.</p><button class="add-btn" onclick="addToCart('Shawarma Saj Mix',31)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="pasta">
+    <h3>🍝 Papa Dola Pasta</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Classic Pasta</h4><span class="price">Price on Selection</span></div><p>Penne pasta with pico de gallo, parmesan cheese, served with your choice of white, red or pink sauce.</p><button class="add-btn" onclick="addToCart('Classic Pasta',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pasta with Chicken Shawarma</h4><span class="price">Price on Selection</span></div><p>Penne pasta with chicken shawarma, served with your choice of white, red or pink sauce.</p><button class="add-btn" onclick="addToCart('Pasta with Chicken Shawarma',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pasta with Fried Chicken</h4><span class="price">Price on Selection</span></div><p>Penne or fusilli pasta with fried chicken, pico de gallo, parmesan cheese, served with your choice of sauce.</p><button class="add-btn" onclick="addToCart('Pasta with Fried Chicken',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pasta with Grilled Chicken</h4><span class="price">Price on Selection</span></div><p>Penne pasta with grilled chicken, pico de gallo, parmesan cheese, served with your choice of white, red or pink sauce.</p><button class="add-btn" onclick="addToCart('Pasta with Grilled Chicken',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pasta with Beef Shawarma</h4><span class="price">Price on Selection</span></div><p>Penne pasta with beef shawarma, pico de gallo, parmesan cheese, served with your choice of white, red or pink sauce.</p><button class="add-btn" onclick="addToCart('Pasta with Beef Shawarma',0)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pasta with Fried/Grilled Shrimp</h4><span class="price">Price on Selection</span></div><p>Penne or fusilli pasta with fried or grilled shrimp, pico de gallo, parmesan cheese, served with your choice of sauce.</p><button class="add-btn" onclick="addToCart('Pasta with Fried/Grilled Shrimp',0)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="fattah">
+    <h3>🫙 Fattah</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Fattah with Grilled Shrimp</h4><span class="price">AED 39</span></div><p>Grilled shrimp stacked on a tortilla shell, topped with pico de gallo, Chick-Fil-A sauce, Papa Dola sauce and chopped cilantro.</p><button class="add-btn" onclick="addToCart('Fattah with Grilled Shrimp',39)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Fajita Fattah</h4><span class="price">AED 36</span></div><p>Grilled chicken strips stacked on a tortilla shell with green bell pepper, white onion, pico de gallo and garlic sauce.</p><button class="add-btn" onclick="addToCart('Chicken Fajita Fattah',36)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fattah with Fried Shrimp</h4><span class="price">AED 39</span></div><p>Fried shrimp stacked on a tortilla shell, topped with pico de gallo, Papa Dola sauce, Chick-Fil-A sauce and chopped cilantro.</p><button class="add-btn" onclick="addToCart('Fattah with Fried Shrimp',39)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fattah Mix Shawarma</h4><span class="price">AED 37</span></div><p>A mix of beef and chicken shawarma stacked on a crispy tortilla shell, topped with assorted sauces.</p><button class="add-btn" onclick="addToCart('Fattah Mix Shawarma',37)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="sandwiches">
+    <h3>🥪 Sandwiches & Burgers</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Kofta Sandwich</h4><span class="price">AED 19</span></div><p>Charcoal grilled chicken kebab with garlic sauce and cucumber pickles in Arabic bread.</p><button class="add-btn" onclick="addToCart('Chicken Kofta Sandwich',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shish Tawook Samoun</h4><span class="price">AED 24</span></div><p>Shish tawook, fries, coleslaw, pickles, garlic sauce and ketchup in a samoun bread.</p><button class="add-btn" onclick="addToCart('Shish Tawook Samoun',24)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken on Charcoal Sandwich</h4><span class="price">AED 24</span></div><p>Charcoal grilled boneless chicken in Arabic bread with garlic sauce and cucumber pickles.</p><button class="add-btn" onclick="addToCart('Chicken on Charcoal Sandwich',24)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fries Sandwich</h4><span class="price">AED 16</span></div><p>Golden fries, fresh coleslaw, ketchup and garlic sauce.</p><button class="add-btn" onclick="addToCart('Fries Sandwich',16)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Burger</h4><span class="price">AED 27</span></div><p>Fried chicken, American cheese & house sauce.</p><button class="add-btn" onclick="addToCart('Chicken Burger',27)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Cheese Burger</h4><span class="price">AED 29</span></div><p>Beef patty, American cheese & mac sauce.</p><button class="add-btn" onclick="addToCart('Cheese Burger',29)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mushroom Swiss Cheese Burger</h4><span class="price">AED 29</span></div><p>Beef patty, Swiss cheese & mushroom sauce.</p><button class="add-btn" onclick="addToCart('Mushroom Swiss Cheese Burger',29)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="grills">
+    <h3>🔥 Grills</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Papa Dola Grills 750G</h4><span class="price">AED 99</span></div><p>The ultimate meat grill assortment featuring meat tikka, lamb chops, arayes and kebab, served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Papa Dola Grills 750G',99)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mix Chicken 0.5KG</h4><span class="price">AED 60</span></div><p>Shish tawook and grilled chicken kebab, served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Mix Chicken 0.5KG',60)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat Kofta 500g</h4><span class="price">AED 65</span></div><p>Lightly spiced, perfectly grilled premium meat cubes served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Meat Kofta 500g',65)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lamb Chops 500g</h4><span class="price">AED 85</span></div><p>Juicy charcoal grilled lamb chops, served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Lamb Chops 500g',85)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Kebab</h4><span class="price">AED 59</span></div><p>Juicy grilled minced kebab made from premium lamb meat with a blend of spices, herbs and fresh vegetables, served with fries, garlic sauce and Arabic bread.</p><button class="add-btn" onclick="addToCart('Kebab',59)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Grilled Kofta Patties</h4><span class="price">AED 52</span></div><p>Charcoal grilled spiced lamb kofta patties, served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Grilled Kofta Patties',52)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Arayes</h4><span class="price">AED 48</span></div><p>Fresh bread from our oven, stuffed with a special lamb arayes mix, served with hummus, fries, garlic sauce, Mexican sauce and pickles.</p><button class="add-btn" onclick="addToCart('Arayes',48)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shish Tawook</h4><span class="price">AED 48</span></div><p>Tender cubes of chicken marinated and grilled to perfection, served with hummus, fries, garlic sauce, Mexican sauce, pickles and Arabic bread.</p><button class="add-btn" onclick="addToCart('Shish Tawook',48)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Kg Mix Grill</h4><span class="price">AED 149</span></div><p>Served with French fries, hummus, garlic sauce and fresh vegetables.</p><button class="add-btn" onclick="addToCart('Kg Mix Grill',149)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Kg Mix Meat</h4><span class="price">AED 179</span></div><p>Served with French fries, hummus, garlic sauce and fresh vegetables.</p><button class="add-btn" onclick="addToCart('Kg Mix Meat',179)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Kg Mix Chicken</h4><span class="price">AED 130</span></div><p>Served with French fries, hummus, garlic sauce and fresh vegetables.</p><button class="add-btn" onclick="addToCart('Kg Mix Chicken',130)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>1 Kg Kofta</h4><span class="price">AED 145</span></div><p>Served with French fries, hummus, garlic sauce and fresh vegetables.</p><button class="add-btn" onclick="addToCart('1 Kg Kofta',145)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Kg Shish Tawook</h4><span class="price">AED 140</span></div><p>Served with French fries, hummus, garlic sauce and fresh vegetables.</p><button class="add-btn" onclick="addToCart('Kg Shish Tawook',140)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mix Grill with Rice</h4><span class="price">AED 52</span></div><p>Meat tikka, shish tawook, meat kebab, chicken kebab, served with saffron rice, yogurt and pickles.</p><button class="add-btn" onclick="addToCart('Mix Grill with Rice',52)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mix Meat with Rice</h4><span class="price">AED 55</span></div><p>The ultimate meat grill assortment featuring meat tikka, lamb chops, arayes and kebab, served with saffron rice, yogurt and pickles.</p><button class="add-btn" onclick="addToCart('Mix Meat with Rice',55)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="bakery">
+    <h3>🥐 Bakery</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat Pastries</h4><span class="price">AED 12</span></div><p>Dough and minced meat.</p><button class="add-btn" onclick="addToCart('Meat Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat with Cheese Pastries</h4><span class="price">AED 12</span></div><p>Dough, minced meat and cheese.</p><button class="add-btn" onclick="addToCart('Meat with Cheese Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat with Mushroom Pastries</h4><span class="price">AED 12</span></div><p>Dough, minced meat and mushroom.</p><button class="add-btn" onclick="addToCart('Meat with Mushroom Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat with Vegetables Pastries</h4><span class="price">AED 12</span></div><p>Dough, minced meat and vegetables.</p><button class="add-btn" onclick="addToCart('Meat with Vegetables Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken with Cheese Pastries</h4><span class="price">AED 12</span></div><p>Dough, akawi cheese and chicken.</p><button class="add-btn" onclick="addToCart('Chicken with Cheese Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Mayonnaise Pastries</h4><span class="price">AED 12</span></div><p>Mini chicken and mayo pastry.</p><button class="add-btn" onclick="addToCart('Chicken Mayonnaise Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Mushroom Pastries</h4><span class="price">AED 12</span></div><p>Mini chicken with mushroom pastry.</p><button class="add-btn" onclick="addToCart('Chicken Mushroom Pastries',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Cheese with Olives</h4><span class="price">AED 12</span></div><p>Dough, akawi cheese and black olives.</p><button class="add-btn" onclick="addToCart('Cheese with Olives',12)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="manakish">
+    <h3>🫓 Manakish</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Lahm Bi Ajin Manakish</h4><span class="price">AED 22</span></div><p>Flatbread topped with seasoned minced meat.</p><button class="add-btn" onclick="addToCart('Lahm Bi Ajin Manakish',22)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Muhammara Manakish</h4><span class="price">AED 19</span></div><p>Dough with muhammara sauce.</p><button class="add-btn" onclick="addToCart('Muhammara Manakish',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lahm Ajin with Mozzarella</h4><span class="price">AED 20</span></div><p>Classic lahm ajin flatbread topped with mozzarella cheese.</p><button class="add-btn" onclick="addToCart('Lahm Ajin with Mozzarella',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Muhammara with Cheese Manakish</h4><span class="price">AED 20</span></div><p>Dough, mozzarella cheese and muhammara sauce.</p><button class="add-btn" onclick="addToCart('Muhammara with Cheese Manakish',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Meat and Mushroom Manakish</h4><span class="price">AED 22</span></div><p>Flatbread topped with seasoned meat and mushroom.</p><button class="add-btn" onclick="addToCart('Meat and Mushroom Manakish',22)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Muhammara with Labneh Manakish</h4><span class="price">AED 19</span></div><p>Dough, muhammara sauce and labneh.</p><button class="add-btn" onclick="addToCart('Muhammara with Labneh Manakish',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Akawi Cheese Manakish</h4><span class="price">AED 19</span></div><p>A flatbread topped with akawi cheese.</p><button class="add-btn" onclick="addToCart('Akawi Cheese Manakish',19)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="dessert">
+    <h3>🍮 Dessert</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Pistachio Konafa</h4><span class="price">AED 25</span></div><p>Delicate crispy konafa pastry generously stuffed with premium pistachio filling, drizzled with fragrant sugar syrup.</p><button class="add-btn" onclick="addToCart('Pistachio Konafa',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Konafa Chocolate</h4><span class="price">AED 24</span></div><p>Thin layers of shredded pastry, crispy kunafa dough filled with rich chocolate and topped with melted dark chocolate sauce.</p><button class="add-btn" onclick="addToCart('Konafa Chocolate',24)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Konafa with Cream</h4><span class="price">AED 20</span></div><p>Delicate shredded pastry layered with smooth creamy filling, drizzled with sweet syrup — crispy and soft.</p><button class="add-btn" onclick="addToCart('Konafa with Cream',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Konafa with Nuts</h4><span class="price">AED 17</span></div><p>Delicate shredded pastry layered with roasted nuts and sweet syrup — crispy, golden and rich.</p><button class="add-btn" onclick="addToCart('Konafa with Nuts',17)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Balah El Sham Lotus</h4><span class="price">AED 25</span></div><p>Delicate choux pastry fingers filled with smooth lotus cream and drizzled with fragrant sugar syrup.</p><button class="add-btn" onclick="addToCart('Balah El Sham Lotus',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Balah Elsham Honey</h4><span class="price">AED 17</span></div><p>Delicate pastry rolls filled with fragrant honey syrup — a traditional Middle Eastern dessert that melts in your mouth.</p><button class="add-btn" onclick="addToCart('Balah Elsham Honey',17)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Balah Elsham Mix</h4><span class="price">AED 18</span></div><p>Rich Balah Elsham rolls stuffed with cream and selection sauce — pistachio, lotus and chocolate.</p><button class="add-btn" onclick="addToCart('Balah Elsham Mix',18)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Balah Elsham Cream</h4><span class="price">AED 19</span></div><p>Delicate pastry rolls filled with creamy custard and topped with sweet syrup and crushed pistachios.</p><button class="add-btn" onclick="addToCart('Balah Elsham Cream',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Basbosa</h4><span class="price">AED 22</span></div><p>A delightful Middle Eastern semolina cake soaked in sweet syrup and topped with a whole almond.</p><button class="add-btn" onclick="addToCart('Basbosa',22)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Crispy Zalabya</h4><span class="price">AED 10</span></div><p>Golden crispy zalabya with a delicate sweet flavor, drizzled with aromatic sugar syrup, pistachios, chocolate or lotus.</p><button class="add-btn" onclick="addToCart('Crispy Zalabya',10)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Zalabya Mix</h4><span class="price">AED 19</span></div><p>Golden crispy Zalabya pastries drizzled with pistachio, lotus and chocolate, sprinkled with crushed pistachios.</p><button class="add-btn" onclick="addToCart('Zalabya Mix',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Zalabya Sugar and Honey</h4><span class="price">AED 15</span></div><p>Delicate crispy pastry spirals drizzled with pure golden honey and dusted with fine sugar.</p><button class="add-btn" onclick="addToCart('Zalabya Sugar and Honey',15)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Feteer with Milk and Sugar</h4><span class="price">AED 27</span></div><p>A freshly baked golden pie soaked with warm milk and finished with a delicate layer of powdered sugar. Soft, rich and indulgent.</p><button class="add-btn" onclick="addToCart('Feteer with Milk and Sugar',27)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="ajman" data-cat="drinks">
+    <h3>🥤 Drinks</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Avocado and Nuts Mix</h4><span class="price">AED 25</span></div><p>Creamy avocado blended with a premium mix of roasted almonds, cashews and walnuts — rich and nutritious.</p><button class="add-btn" onclick="addToCart('Avocado and Nuts Mix',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Orange Juice</h4><span class="price">AED 19</span></div><p>Freshly crafted orange juice packed with Vitamin C — refreshing and healthy.</p><button class="add-btn" onclick="addToCart('Orange Juice',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Watermelon Juice</h4><span class="price">AED 20</span></div><p>Refreshing and hydrating watermelon juice.</p><button class="add-btn" onclick="addToCart('Watermelon Juice',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mineral Water</h4><span class="price">AED 5</span></div><p>Refreshing mineral water.</p><button class="add-btn" onclick="addToCart('Mineral Water',5)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pepsi</h4><span class="price">AED 7</span></div><p>Pepsi can 300ml.</p><button class="add-btn" onclick="addToCart('Pepsi',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pepsi Diet</h4><span class="price">AED 7</span></div><p>Pepsi diet can 300ml.</p><button class="add-btn" onclick="addToCart('Pepsi Diet',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>7Up</h4><span class="price">AED 7</span></div><p>7Up can 300ml.</p><button class="add-btn" onclick="addToCart('7Up',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Miranda</h4><span class="price">AED 7</span></div><p>Miranda can 300ml.</p><button class="add-btn" onclick="addToCart('Miranda',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lemon Juice</h4><span class="price">AED 19</span></div><p>The essence of fresh lemon — the perfect balance between sweet and sour.</p><button class="add-btn" onclick="addToCart('Lemon Juice',19)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lemon Mint Juice</h4><span class="price">AED 20</span></div><p>A blend of fresh lemons and mint leaves with a touch of sweetness — the perfect thirst quencher.</p><button class="add-btn" onclick="addToCart('Lemon Mint Juice',20)">+ Add</button></div>
+    </div>
+  </div>
+
+</div><!-- end ajman -->
+
+<!-- ══════════════ AL AIN MENU ══════════════ -->
+<div class="menu-location" id="alain-menu">
+
+  <div class="category-section" data-loc="alain" data-cat="shawarma">
+    <h3>🥙 Shawarma Sandwich</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Shawarma Kaiser</h4><span class="price">AED 10</span></div><p>Kaiser bun stuffed with chicken shawarma, creamy garlic sauce & dill pickle.</p><button class="add-btn" onclick="addToCart('Chicken Shawarma Kaiser',10)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Kaiser</h4><span class="price">AED 13</span></div><p>Bun bread stuffed with beef shawarma, tahini sauce, fresh onion, tomato & turnip pickles.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Kaiser',13)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Shawarma Saj</h4><span class="price">AED 12</span></div><p>Chicken shawarma wrapped in toasted saj bread with creamy garlic sauce & refreshing pickles.</p><button class="add-btn" onclick="addToCart('Chicken Shawarma Saj',12)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Saj</h4><span class="price">AED 15</span></div><p>Beef shawarma wrapped in toasted saj bread with homemade tahini, fresh onion, tomato & turnip pickles.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Saj',15)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Shawarma Maria Bread</h4><span class="price">AED 28</span></div><p>Maria bread stuffed with chicken shawarma, maria sauce, dill pickle & fried potato.</p><button class="add-btn" onclick="addToCart('Chicken Shawarma Maria Bread',28)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Beef Shawarma Maria Bread</h4><span class="price">AED 32</span></div><p>Maria bread stuffed with beef shawarma, maria sauce, dill pickle & fried potato.</p><button class="add-btn" onclick="addToCart('Beef Shawarma Maria Bread',32)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="value">
+    <h3>🍽️ Value Meals</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Single Shawarma Meal (Chicken)</h4><span class="price">AED 20</span></div><p>1 toasted saj chicken shawarma (large, cut 6 pcs) + garlic sauce + spicy sauce + pickle + fries.</p><button class="add-btn" onclick="addToCart('Single Shawarma Meal (Chicken)',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Single Shawarma Meal (Beef)</h4><span class="price">AED 23</span></div><p>1 toasted saj beef shawarma (large, cut 6 pcs) + garlic sauce + spicy sauce + pickle + fries.</p><button class="add-btn" onclick="addToCart('Single Shawarma Meal (Beef)',23)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Double Shawarma Meal (Chicken)</h4><span class="price">AED 35</span></div><p>2 toasted saj chicken shawarma (large) + garlic sauce + spicy sauce + pickle + fries.</p><button class="add-btn" onclick="addToCart('Double Shawarma Meal (Chicken)',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Double Shawarma Meal (Beef)</h4><span class="price">AED 40</span></div><p>2 toasted saj beef shawarma (large) + garlic sauce + spicy sauce + pickle + fries.</p><button class="add-btn" onclick="addToCart('Double Shawarma Meal (Beef)',40)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Arabic Mix Shawarma Meal</h4><span class="price">AED 39</span></div><p>1 beef + 1 chicken saj shawarma (large) + garlic sauce + spicy sauce + pickle + fries.</p><button class="add-btn" onclick="addToCart('Arabic Mix Shawarma Meal',39)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="boxes">
+    <h3>📦 Papa Dola Box Meals</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Kharatesh Chicken</h4><span class="price">AED 30</span></div><p>6 pcs chicken shawarma small + garlic sauce + dill pickles.</p><button class="add-btn" onclick="addToCart('Combo El Kharatesh Chicken',30)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Kharatesh Beef</h4><span class="price">AED 35</span></div><p>6 pcs beef shawarma small + tahini sauce + mix pickles.</p><button class="add-btn" onclick="addToCart('Combo El Kharatesh Beef',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Kharatesh Mix</h4><span class="price">AED 35</span></div><p>3 pcs chicken + 3 pcs beef shawarma + tahini + garlic sauce + mix pickles.</p><button class="add-btn" onclick="addToCart('Combo El Kharatesh Mix',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Moftry Chicken</h4><span class="price">AED 48</span></div><p>2 large chicken shawarma + garlic + spicy sauce + dill pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Moftry Chicken',48)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Moftary Beef</h4><span class="price">AED 55</span></div><p>2 large beef shawarma + tahini sauce + mix pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Moftary Beef',55)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Rawkan Chicken</h4><span class="price">AED 38</span></div><p>Maria chicken + garlic + spicy sauce + pkt potato + dill pickle + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Rawkan Chicken',38)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Rawkan Beef</h4><span class="price">AED 40</span></div><p>Maria beef + 2 tahini + 2 mix pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Rawkan Beef',40)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lovers Combo Chicken</h4><span class="price">AED 40</span></div><p>4 pcs kaiser chicken shawarma + 2 garlic + 2 spicy sauce + 2 pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Lovers Combo Chicken',40)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lovers Combo Beef</h4><span class="price">AED 45</span></div><p>4 pcs kaiser beef shawarma + 2 tahini + 2 pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Lovers Combo Beef',45)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Lama Chicken</h4><span class="price">AED 60</span></div><p>12 pcs chicken shawarma kharatesh + 2 spicy + 2 garlic sauce + 2 pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Lama Chicken',60)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Lama Beef</h4><span class="price">AED 70</span></div><p>12 pcs beef shawarma kharatesh + 2 tahini + 2 pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Lama Beef',70)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Combo El Lama Mix</h4><span class="price">AED 70</span></div><p>6 pcs beef + 6 pcs chicken kharatesh + garlic + spicy + tahini sauce + pickles + fries + soft drink.</p><button class="add-btn" onclick="addToCart('Combo El Lama Mix',70)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="fatteh">
+    <h3>🍲 Fatteh & More</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Fatteh Chicken Shawarma</h4><span class="price">AED 35</span></div><p>Rice stuffed with chicken shawarma + toasted bread + garlic sauce + dill pickles.</p><button class="add-btn" onclick="addToCart('Fatteh Chicken Shawarma',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fata Beef Shawarma</h4><span class="price">AED 45</span></div><p>Rice stuffed with beef shawarma + toasted bread + tahini sauce + mix pickles.</p><button class="add-btn" onclick="addToCart('Fata Beef Shawarma',45)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fatteh Mix</h4><span class="price">AED 45</span></div><p>Rice stuffed with chicken and beef shawarma + toasted bread + tahini + garlic sauce + mix pickles.</p><button class="add-btn" onclick="addToCart('Fatteh Mix',45)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>FATA Papa Dola Pasta</h4><span class="price">AED 40</span></div><p>Papa Dola's special fata pasta — a unique twist on the classic.</p><button class="add-btn" onclick="addToCart('FATA Papa Dola Pasta',40)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="grilled">
+    <h3>🔥 Grilled Meals Corner</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Chicken Kebab Meal</h4><span class="price">AED 35</span></div><p>Grilled chicken (4 skewers) + rice + fries. With garlic sauce, spicy garlic sauce, mixed pickles & bread.</p><button class="add-btn" onclick="addToCart('Chicken Kebab Meal',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Shish Tawook Meal</h4><span class="price">AED 35</span></div><p>4 skewers + rice + fries. With garlic sauce, spicy garlic sauce, mixed pickles & bread.</p><button class="add-btn" onclick="addToCart('Shish Tawook Meal',35)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Lamb Kebab Meal</h4><span class="price">AED 40</span></div><p>Grilled lamb (4 skewers) + rice + fries. With tahini, mixed pickles, salad & bread.</p><button class="add-btn" onclick="addToCart('Lamb Kebab Meal',40)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Mixed Grill Meal</h4><span class="price">AED 38</span></div><p>Chicken kofta + lamb kofta + shish tawook skewers. With garlic sauce, coleslaw, tahini, salad & bread.</p><button class="add-btn" onclick="addToCart('Mixed Grill Meal',38)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Quarter Chicken Meal (Thigh)</h4><span class="price">AED 25</span></div><p>Grilled quarter chicken + rice + fries. With garlic sauce, spicy garlic sauce, mixed pickles & bread.</p><button class="add-btn" onclick="addToCart('Quarter Chicken Meal (Thigh)',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Half Chicken Meal</h4><span class="price">AED 38</span></div><p>Half grilled chicken + rice + fries. With garlic sauce, spicy garlic sauce, coleslaw, mixed pickles & bread.</p><button class="add-btn" onclick="addToCart('Half Chicken Meal',38)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="salad">
+    <h3>🥗 Salads & Healthy</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Diet Meal</h4><span class="price">AED 25</span></div><p>Grilled chicken breast with mixed cooked vegetables.</p><button class="add-btn" onclick="addToCart('Diet Meal',25)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Tabbouleh</h4><span class="price">AED 20</span></div><p>Finely chopped parsley, tomatoes, onions & lemon dressing.</p><button class="add-btn" onclick="addToCart('Tabbouleh',20)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Fattoush</h4><span class="price">AED 25</span></div><p>Fresh vegetables, herbs, toasted bread, crisp lettuce, tomatoes, cucumbers, radish, fresh zataar & mint.</p><button class="add-btn" onclick="addToCart('Fattoush',25)">+ Add</button></div>
+    </div>
+  </div>
+
+  <div class="category-section" data-loc="alain" data-cat="drinks">
+    <h3>🥤 Drinks & Extras</h3>
+    <div class="menu-grid">
+      <div class="menu-card"><div class="menu-card-header"><h4>Mineral Water</h4><span class="price">AED 5</span></div><p>Refreshing mineral water.</p><button class="add-btn" onclick="addToCart('Mineral Water',5)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Pepsi</h4><span class="price">AED 7</span></div><p>Pepsi can 300ml.</p><button class="add-btn" onclick="addToCart('Pepsi',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>7Up</h4><span class="price">AED 7</span></div><p>7Up can 300ml.</p><button class="add-btn" onclick="addToCart('7Up',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Miranda</h4><span class="price">AED 7</span></div><p>Miranda can 300ml.</p><button class="add-btn" onclick="addToCart('Miranda',7)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Add Garlic Sauce</h4><span class="price">AED 4</span></div><p>Extra garlic sauce.</p><button class="add-btn" onclick="addToCart('Add Garlic Sauce',4)">+ Add</button></div>
+      <div class="menu-card"><div class="menu-card-header"><h4>Add Fries</h4><span class="price">AED 8</span></div><p>Crispy golden fries.</p><button class="add-btn" onclick="addToCart('Add Fries',8)">+ Add</button></div>
+    </div>
+  </div>
+
+</div><!-- end alain -->
+</section>
+
+<!-- ORDER -->
+<section id="order">
+  <div class="section-header" style="padding-top:0;margin-bottom:28px;">
+    <h2 style="color:var(--cream);">Place Your Order</h2>
+    <p style="color:var(--cream-dim);">Fill in your details and we'll get it ready</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="order-wrapper">
+    <h2>Your Order</h2>
+    <p>Items selected from the menu will appear here. Enter your details to confirm.</p>
+    <div class="order-preview" id="order-preview">
+      <p>No items yet. Browse the menu and click "+ Add".</p>
+    </div>
+    <div class="order-total">
+      <span>Total Amount:</span>
+      <strong id="order-total-display">AED 0.00</strong>
+    </div>
+    <form id="order-form" onsubmit="submitOrder(event)">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="fname" placeholder="Your full name" required /></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" placeholder="+971 XX XXX XXXX" required /></div>
+      </div>
+      <div class="form-group"><label>Delivery Address *</label><input type="text" id="address" placeholder="Street, area, landmark..." required /></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Branch</label>
+          <select id="branch">
+            <option value="ajman">Ajman – Al Rashidiya</option>
+            <option value="alain">Al Ain – Al Jimi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Order Type</label>
+          <select id="order-type"><option value="delivery">Delivery</option><option value="pickup">Pickup</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select id="payment"><option value="cash">Cash on Delivery</option><option value="card">Card on Delivery</option></select>
+      </div>
+      <div class="form-group"><label>Special Instructions</label><textarea id="notes" placeholder="Allergies, extra sauce, no pickles, etc."></textarea></div>
+      <button type="submit" class="submit-btn">✓ CONFIRM ORDER</button>
+    </form>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text">
+    <div class="est-badge">ETS. 1985</div>
+    <h2>About <span>Papa Dola</span></h2>
+    <p>Papa Dola is a beloved Egyptian-Arabic restaurant serving authentic cuisine across the UAE since 1985. With locations in Al Rashidiya, Ajman and Al Jimi, Al Ain, we bring the finest flavors to your table.</p>
+    <p>From legendary shawarmas and crispy feteer to hearty grills, fresh pasta, and indulgent Middle Eastern desserts — every dish carries our promise: <em>When Flavor Speaks, Dola Leads.</em></p>
+    <div class="about-feats">
+      <div class="feat"><span>🌿</span><span>Fresh Daily</span></div>
+      <div class="feat"><span>👨‍🍳</span><span>Since 1985</span></div>
+      <div class="feat"><span>📍</span><span>2 Locations</span></div>
+      <div class="feat"><span>🚀</span><span>Fast Delivery</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 <strong>Papa Dola Restaurant</strong> · Al Rashidiya, Ajman &amp; Al Jimi, Al Ain, UAE</p>
+  <p style="margin-top:6px;">📞 +971 54 305 2044 &nbsp;|&nbsp; ☎️ +971 6 572 8425</p>
+  <p style="margin-top:6px; color:var(--gold); font-style:italic;">"When Flavor Speaks, Dola Leads."</p>
+</footer>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cart-items"><div class="cart-empty">Your cart is empty.<br>Add items from the menu!</div></div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Total:</span><strong id="cart-total">AED 0.00</strong></div>
+    <button class="cart-order-btn" onclick="goToOrder()">Proceed to Order →</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-box">
+    <div class="modal-icon">🎉</div>
+    <h3>ORDER PLACED!</h3>
+    <p>Thank you! Your order has been received. We'll call you shortly on your provided number to confirm delivery details.<br><br>📞 +971 54 305 2044</p>
+    <button class="modal-close-btn" onclick="closeModal()">Great, Thanks!</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    const ex = cart.find(i => i.name === name);
+    if (ex) ex.qty++;
+    else cart.push({ name, price, qty: 1 });
+    updateCartUI();
+    showToast('"' + name + '" added to cart');
+  }
+
+  function removeFromCart(name) {
+    cart = cart.filter(i => i.name !== name);
+    updateCartUI();
+  }
+
+  function changeQty(name, delta) {
+    const item = cart.find(i => i.name === name);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) removeFromCart(name);
+    else updateCartUI();
+  }
+
+  function updateCartUI() {
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-count').textContent = totalItems;
+    document.getElementById('cart-total').textContent = 'AED ' + total.toFixed(2);
+    document.getElementById('order-total-display').textContent = 'AED ' + total.toFixed(2);
+
+    const cartEl = document.getElementById('cart-items');
+    const previewEl = document.getElementById('order-preview');
+
+    if (cart.length === 0) {
+      cartEl.innerHTML = '<div class="cart-empty">Your cart is empty.<br>Add items from the menu!</div>';
+      previewEl.innerHTML = '<p>No items yet. Browse the menu and click "+ Add".</p>';
+      return;
+    }
+
+    cartEl.innerHTML = cart.map(i => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <strong>${i.name}</strong>
+          <span>AED ${(i.price * i.qty).toFixed(2)}</span>
+        </div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty('${i.name.replace(/'/g,"\\'")}', -1)">−</button>
+          <span>${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${i.name.replace(/'/g,"\\'")}', 1)">+</button>
+        </div>
+      </div>`).join('');
+
+    previewEl.innerHTML = cart.map(i =>
+      `<div class="cart-item-row"><span>${i.name} × ${i.qty}</span><span>AED ${(i.price * i.qty).toFixed(2)}</span></div>`
+    ).join('') +
+    `<div class="cart-item-row" style="font-weight:800;border-top:1px solid #ddd;margin-top:6px;padding-top:6px;color:var(--maroon);">
+      <span>TOTAL</span><span>AED ${total.toFixed(2)}</span></div>`;
+  }
+
+  function toggleCart() {
+    document.getElementById('cart-panel').classList.toggle('open');
+    document.getElementById('cart-overlay').classList.toggle('open');
+  }
+
+  function goToOrder() {
+    toggleCart();
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function switchLocation(loc, btn) {
+    document.querySelectorAll('.loc-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-location').forEach(m => m.classList.remove('active'));
+    document.getElementById(loc + '-menu').classList.add('active');
+    document.getElementById('ajman-cats').style.display = loc === 'ajman' ? 'flex' : 'none';
+    document.getElementById('alain-cats').style.display = loc === 'alain' ? 'flex' : 'none';
+    // reset all tabs
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    const firstTab = document.querySelector('#' + loc + '-cats .cat-tab');
+    if (firstTab) firstTab.classList.add('active');
+    filterCat(loc, 'all', firstTab);
+  }
+
+  function filterCat(loc, cat, btn) {
+    if (btn) {
+      const parentId = loc + '-cats';
+      document.querySelectorAll('#' + parentId + ' .cat-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    document.querySelectorAll('#' + loc + '-menu .category-section').forEach(sec => {
+      sec.style.display = (cat === 'all' || sec.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  function submitOrder(e) {
+    e.preventDefault();
+    if (cart.length === 0) { showToast('Please add items to your cart first!'); return; }
+    document.getElementById('success-modal').classList.add('open');
+    cart = [];
+    updateCartUI();
+    document.getElementById('order-form').reset();
+  }
+
+  function closeModal() {
+    document.getElementById('success-modal').classList.remove('open');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+</script>
+</body>
+</html>
