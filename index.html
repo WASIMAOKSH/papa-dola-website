@@ -957,6 +957,40 @@
   function submitOrder(e) {
     e.preventDefault();
     if (cart.length === 0) { showToast('Please add items to your cart first!'); return; }
+
+    const name    = document.getElementById('fname').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const branch  = document.getElementById('branch').value === 'ajman' ? 'Ajman – Al Rashidiya' : 'Al Ain – Al Jimi';
+    const type    = document.getElementById('order-type').value === 'delivery' ? '🚗 Delivery' : '🏃 Pickup';
+    const payment = document.getElementById('payment').value === 'cash' ? '💵 Cash on Delivery' : '💳 Card on Delivery';
+    const notes   = document.getElementById('notes').value.trim();
+    const total   = cart.reduce((s, i) => s + i.price * i.qty, 0).toFixed(2);
+
+    const items = cart.map(i =>
+      `  • ${i.name} × ${i.qty}  →  AED ${(i.price * i.qty).toFixed(2)}`
+    ).join('\n');
+
+    const msg =
+`🛎️ *NEW ORDER – Papa Dola*
+──────────────────────
+👤 *Name:* ${name}
+📞 *Phone:* ${phone}
+📍 *Branch:* ${branch}
+${address ? '🏠 *Address:* ' + address + '\n' : ''}${type}
+${payment}
+──────────────────────
+🛒 *ORDER ITEMS:*
+${items}
+──────────────────────
+💰 *TOTAL: AED ${total}*
+${notes ? '📝 *Notes:* ' + notes : ''}
+──────────────────────
+_Sent via Papa Dola Website_`;
+
+    const waURL = 'https://wa.me/971543052044?text=' + encodeURIComponent(msg);
+    window.open(waURL, '_blank');
+
     document.getElementById('success-modal').classList.add('open');
     cart = [];
     updateCartUI();
